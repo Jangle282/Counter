@@ -14,6 +14,7 @@ const projectUser = require('../testData/testProjectUser')
 
 
 const bcryptSalt = 10;
+mongoose.set('useCreateIndex', true)
 mongoose
   .connect('mongodb://localhost/counter', {useNewUrlParser: true})
   .then(x => {

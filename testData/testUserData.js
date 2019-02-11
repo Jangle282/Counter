@@ -1,6 +1,8 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
+const {transporter, createConfirmationCode} = require("../configs/emailTransporter");
+
 
 let users = [
   new User ({
@@ -9,7 +11,9 @@ let users = [
     email: "Dawn.Satterfield@leonard.biz", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
     role:  'researcher',
-    profilePicPath: ""
+    profilePicPath: "",
+    status: 'Active',
+    confirmationCode: createConfirmationCode()
   }),
   new User({
     firstName: 'Kiarra',
@@ -17,7 +21,9 @@ let users = [
     email: "Kiarra.Doyle@darwin.net", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
     role:  'researcher',
-    profilePicPath: ""
+    profilePicPath: "",
+    status: 'Active',
+    confirmationCode: createConfirmationCode()
   }),
   new User({
     firstName: 'Kiarra',
@@ -25,7 +31,10 @@ let users = [
     email: "Kiarra.Doyle@darwin.net", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
     role:  'participant',
-    profilePicPath: ""
+    profilePicPath: "",
+    status: 'Active',
+    confirmationCode: createConfirmationCode()
+
   }),
   new User({
     firstName: 'Lela',
@@ -33,7 +42,10 @@ let users = [
     email: "orangerabbit21@gmail.com", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
     role:  'participant',
-    profilePicPath: ""
+    profilePicPath: "",
+    status: 'Active',
+    confirmationCode: createConfirmationCode()
+
   }),
   new User({
     firstName: 'Wiley',
@@ -41,7 +53,10 @@ let users = [
     email: "limefrog58@gmail.com", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
     role:  'participant',
-    profilePicPath: ""
+    profilePicPath: "",
+    status: 'Active',
+    confirmationCode: createConfirmationCode()
+
   }),
   new User({
     firstName: 'Yasmin',
@@ -49,7 +64,10 @@ let users = [
     email: "Yasmin.Erdman@belle.net", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
     role:  'participant',
-    profilePicPath: ""
+    profilePicPath: "",
+    status: 'Active',
+    confirmationCode: createConfirmationCode()
+
   }),
   new User({
     firstName: 'Rogelio',
@@ -57,7 +75,10 @@ let users = [
     email: "ivorygiraffe32@gmail.com", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
     role:  'participant',
-    profilePicPath: ""
+    profilePicPath: "",
+    status: 'Active',
+    confirmationCode: createConfirmationCode()
+
   }),
   new User({
     firstName: 'Mossie',
@@ -65,7 +86,10 @@ let users = [
     email: "Mossie.D'Amore@sedrick.net", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
     role:  'participant',
-    profilePicPath: ""
+    profilePicPath: "",
+    status: 'Active',
+    confirmationCode: createConfirmationCode()
+
   }),
   new User({
     firstName: 'Clay',
@@ -73,7 +97,10 @@ let users = [
     email: "lavendergiraffe60@gmail.com", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
     role:  'admin',
-    profilePicPath: ""
+    profilePicPath: "",
+    status: 'Active',
+    confirmationCode: createConfirmationCode()
+
   })
 ]
 
