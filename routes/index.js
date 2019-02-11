@@ -1,13 +1,14 @@
 const express = require('express');
 const router  = express.Router();
 const Project = require("../models/Project")
+const {isConnected} = require("../configs/middlewares")
 
 /* GET home page */
 router.get('/', (req, res, next) => {
   res.render('index');
 });
 
-router.get('/data-capture', (req, res, next) => {
+router.get('/data-capture', isConnected, (req, res, next) => {
   Project.find()
     .then(projects => {
       res.render('data-capture', {projects});
