@@ -1,24 +1,50 @@
+<div class="container">
 <h2>Signup</h2>
-
-<form action="/auth/signup" method="POST" id="form-container">
-  <label for="username">Username</label>
-  <input id="username" type="text" name="username" placeholder="JonSnow">
-
-  <br><br>
-
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
-  <br>
-  {{#if message }}
+<br>
+  <form action="/auth/signup" method="POST" id="form-container">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="role">Role</label>
+      </div>
+      <select class="custom-select" id="role" name="role">
+        <option value="participant">Participant</option>
+        <option value="researcher">Researcher</option>
+      </select>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="firstName">First Name</label>
+      </div>
+      <input class="form-control" id="firstName" type="text" name="firstName" placeholder="Jon">
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="lastName">Last Name</label>
+      </div>
+      <input class="form-control" id="lastName" type="text" name="lastName" placeholder="Snow">
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="email">Email</label>
+      </div>
+      <input class="form-control" id="email" type="email" name="email" placeholder="jon.snow@gmail.com">
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="password">Password</label>
+      </div>
+      <input class="form-control" id="password" type="password" name="password" placeholder="Your password">
+    </div>
+    
+    {{#if message }}
     <div class="error-message">{{ message }}</div>
-  {{/if}}
+    {{/if}}
 
-  <br><br>
-
-  <button>Create account</button>
-
-  <p class="account-message">
-    Do you already have an account?
-    <a href="/auth/login">Login</a>
-  </p>
-</form>
+    <button class="btn btn-primary">Create account</button>
+<br><br>
+    <p class="account-message">
+      Do you already have an account?
+      <a href="/auth/login">Login</a>
+    </p>
+  </form>
+</div>

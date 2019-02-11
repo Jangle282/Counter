@@ -7,7 +7,10 @@ const userSchema = new Schema({
   email: String,
   password: String,
   role: {type: String, enum: ['participant', 'researcher', 'admin'], default: 'participant'},
-  profilePicPath: String,
+  profilePicPath: {
+    type: String,
+    default: ""
+  }
 }, {
   timestamps: {
     createdAt: 'created_at',

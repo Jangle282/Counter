@@ -1,25 +1,29 @@
-
+<div class="container">
 <h2>Login</h2>
-
+<br>
 <form action="/auth/login" method="POST" id="form-container">
-  <label for="username">Username</label>
-  <input id="username" type="text" name="username" placeholder="JonSnow">
+  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="email">Email</label>
+      </div>
+      <input class="form-control" id="email" type="email" name="email" placeholder="jon.snow@gmail.com">
+  </div>
+  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="password">Password</label>
+      </div>
+      <input class="form-control" id="password" type="password" name="password" placeholder="Your password">
+  </div>
 
-  <br><br>
-
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
-  <br>
   {{#if message }}
     <div class="error-message">{{ message }}</div>
   {{/if}}
 
+  <button class="btn btn-primary">Login</button>
   <br><br>
-
-  <button>Login</button>
-
   <p class="account-message">
     Don't have an account yet?
     <a href="/auth/signup">Signup</a>
   </p>
 </form>
+</div>
