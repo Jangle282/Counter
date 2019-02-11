@@ -1,12 +1,19 @@
 // Seeds file that remove all users and creates test data
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+
 const User = require("../models/User");
 const Project = require('../models/Project')
 const DataPoint = require('../models/DataPoint')
 const ProjectUser = require('../models/ProjectUser')
-const bcryptSalt = 10;
 
+const users = require('../testData/testUserData')
+const datapoints = require('../testData/testDataPoints')
+const projects = require('../testData/testProjectData')
+const projectUser = require('../testData/testProjectUser')
+
+
+const bcryptSalt = 10;
 mongoose
   .connect('mongodb://localhost/counter', {useNewUrlParser: true})
   .then(x => {
@@ -16,59 +23,29 @@ mongoose
     console.error('Error connecting to mongo', err)
   });
 
-  // ----Raw Data-----
-let users = [
-  {
-    firstName: 'Dawn',
-    lastName: 'Satterfield',
-    email: "Dawn.Satterfield@leonard.biz", 
-    password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
-    role:  'participant',
-    profilePicPath: ""
-  },
-  {
-    firstName: 'Kiarra',
-    lastName: 'Doyle',
-    email: "Kiarra.Doyle@darwin.net", 
-    password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
-    role:  'participant',
-    profilePicPath: ""
-  },
-  {
-    firstName: 'Kiarra',
-    lastName: 'Doyle',
-    email: "Kiarra.Doyle@darwin.net", 
-    password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
-    role:  'participant',
-    profilePicPath: ""
-  }
-]
-  
-  let projects = [
-  
-  ]
-  
-  let datapoints = [
-  
-  ]
-  
-  let projectUsers = [
-    
-  ]
-  
-
-  // ----Delete and create in database-----
+  // ----Delete and create test data in database-----
 
 User.deleteMany()
+.then(() => Project.deleteMany())
+.then(() => DataPoint.deleteMany())
+.then(() => ProjectUser.deleteMany())
 .then(() => {
-  return User.create(users)
+  let promises = []
+  for (let i=0; i < users.length; i++) {
+    promises.push(users[i].save())
+  }
+  for (let i=0; i < projects.length; i++) {
+    promises.push(projects[i].save())
+  }
+  for (let i=0; i < datapoints.length; i++) {
+    promises.push(datapoints[i].save())
+  }
+  for (let i=0; i < projectUser.length; i++) {
+    promises.push(projectUser[i].save())
+  }
+  return Promise.all(promises)
 })
 .then(usersCreated => {
-  console.log(`${usersCreated.length} users created with the following id:`);
-  console.log(usersCreated.map(u => u._id));
-})
-.then(() => {
-  // Close properly the connection to Mongoose
   mongoose.disconnect()
 })
 .catch(err => {

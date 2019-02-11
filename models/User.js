@@ -10,7 +10,8 @@ const userSchema = new Schema({
   profilePicPath: {
     type: String,
     default: ""
-  }
+  },
+  
 }, {
   timestamps: {
     createdAt: 'created_at',
