@@ -1,12 +1,10 @@
-// Seeds file that remove all users and create 2 new users
-
-// To execute this seed, run from the root of the project
-// $ node bin/seeds.js
-
+// Seeds file that remove all users and creates test data
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
-
+const Project = require('../models/Project')
+const DataPoint = require('../models/DataPoint')
+const ProjectUser = require('../models/ProjectUser')
 const bcryptSalt = 10;
 
 mongoose
@@ -18,16 +16,48 @@ mongoose
     console.error('Error connecting to mongo', err)
   });
 
+  // ----Raw Data-----
 let users = [
   {
-    username: "alice",
-    password: bcrypt.hashSync("alice", bcrypt.genSaltSync(bcryptSalt)),
+    firstName: 'Dawn',
+    lastName: 'Satterfield',
+    email: "Dawn.Satterfield@leonard.biz", 
+    password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
+    role:  'participant',
+    profilePicPath: ""
   },
   {
-    username: "bob",
-    password: bcrypt.hashSync("bob", bcrypt.genSaltSync(bcryptSalt)),
+    firstName: 'Kiarra',
+    lastName: 'Doyle',
+    email: "Kiarra.Doyle@darwin.net", 
+    password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
+    role:  'participant',
+    profilePicPath: ""
+  },
+  {
+    firstName: 'Kiarra',
+    lastName: 'Doyle',
+    email: "Kiarra.Doyle@darwin.net", 
+    password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
+    role:  'participant',
+    profilePicPath: ""
   }
 ]
+  
+  let projects = [
+  
+  ]
+  
+  let datapoints = [
+  
+  ]
+  
+  let projectUsers = [
+    
+  ]
+  
+
+  // ----Delete and create in database-----
 
 User.deleteMany()
 .then(() => {
