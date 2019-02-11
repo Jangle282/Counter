@@ -12,13 +12,12 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
-
 router.get("/login", (req, res, next) => {
   res.render("auth/login", { "message": req.flash("error") });
 });
 
 router.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
+  successRedirect: "/data-capture",
   failureRedirect: "/auth/login",
   failureFlash: true,
   passReqToCallback: true
@@ -68,9 +67,7 @@ router.post("/signup", (req, res, next) => {
     ])
     .then((results) => {
       var participantId = results[0]._id
-			// console.log('TCL: participantId', participantId)
-    for (var i=0; i<project.length; i++) {
-      // console.log('imin aloop')
+      for (let i in project)  {
       Project.find({ projectName: project[i]})
       .then((project) => {
         console.log(project)
