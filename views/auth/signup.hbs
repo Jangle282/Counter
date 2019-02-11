@@ -13,27 +13,38 @@
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
+        <label class="input-group-text" for="project">Project</label>
+      </div>
+      <select multiple class="custom-select" id="project" name="project">
+        <option value="">--Join a project--</option>
+        {{#each projects}}
+        <option value="{{this.projectName}}">{{this.projectName}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
         <label class="input-group-text" for="firstName">First Name</label>
       </div>
-      <input class="form-control" id="firstName" type="text" name="firstName" placeholder="Jon">
+      <input class="form-control" id="firstName" type="text" name="firstName" placeholder="Jon" required>
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <label class="input-group-text" for="lastName">Last Name</label>
       </div>
-      <input class="form-control" id="lastName" type="text" name="lastName" placeholder="Snow">
+      <input class="form-control" id="lastName" type="text" name="lastName" placeholder="Snow" required>
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <label class="input-group-text" for="email">Email</label>
       </div>
-      <input class="form-control" id="email" type="email" name="email" placeholder="jon.snow@gmail.com">
+      <input class="form-control" id="email" type="email" name="email" placeholder="jon.snow@gmail.com" required>
     </div>
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <label class="input-group-text" for="password">Password</label>
       </div>
-      <input class="form-control" id="password" type="password" name="password" placeholder="Your password">
+      <input class="form-control" id="password" type="password" name="password" placeholder="Your password" required>
     </div>
     
     {{#if message }}

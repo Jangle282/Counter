@@ -1,6 +1,8 @@
 const express = require("express");
 const passport = require('passport');
 const User = require("../models/User");
+const Project = require('../models/Project')
+const ProjectUser = require('../models/ProjectUser')
 const {transporter, createConfirmationCode} = require("../configs/emailTransporter");
 const emailTemplate = require("../configs/confirmationEmail").template;
 
@@ -23,11 +25,14 @@ router.post("/login", passport.authenticate("local", {
 }));
 
 router.get("/signup", (req, res, next) => {
-  res.render("auth/signup");
+  Project.find()
+  .then(projects => {
+    res.render("auth/signup", {projects});
+  })
 });
 
 router.post("/signup", (req, res, next) => {
-  const {firstName, lastName, email, password, role} = req.body;
+  const {firstName, lastName, email, password, role, project} = req.body;
   
   //add variabl for join selections
   if (firstName === "" || lastName === "" || email === "" || password === "") {
@@ -61,10 +66,23 @@ router.post("/signup", (req, res, next) => {
         "http://localhost:3000/auth/confirm/${confirmationCode}"`,
         html: emailTemplate(firstName, lastName, confirmationCode)})
     ])
-    .then(() => {
-      //if (projectSelected)  - create object ProjectUser
-      res.redirect("/");
-    })
+    .then((results) => {
+      var participantId = results[0]._id
+			// console.log('TCL: participantId', participantId)
+    for (var i=0; i<project.length; i++) {
+      // console.log('imin aloop')
+      Project.find({ projectName: project[i]})
+      .then((project) => {
+        console.log(project)
+        const newProjectUser = new ProjectUser ({
+          _project: project[0]._id,
+          _participant: participantId,
+          })
+          newProjectUser.save() 
+        })
+      }
+    res.redirect("/");
+    }) 
     .catch(err => {
       res.render("auth/signup", { message: "Something went wrong" });
     })
