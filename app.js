@@ -74,6 +74,12 @@ app.use(session({
 app.use(flash());
 require('./passport')(app);
     
+app.use((req,res,next)=>{
+  //!! converts truthy into true and falsy into false
+  //res.locals gives the variable isConnected to the view that will be used
+  res.locals.isConnected = !!req.user
+  next()
+})
 
 const index = require('./routes/index');
 app.use('/', index);
