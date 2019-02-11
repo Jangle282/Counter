@@ -8,17 +8,45 @@
   <title>{{title}}</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 
 <body>
 
-  <nav>
-    <a href="/">Home</a>
-    <a href="/auth/login">Login</a>
-    <a href="/auth/signup">Signup</a>
-    <a href="/auth/logout">Logout</a>
-    <a href="/profile">Profile</a>
+  <nav class="navbar navbar-expand-sm navbar-light " style="background-color: #e3f2fd;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/"><i class="fas fa-home fa-2x"></i></a>
+      </li>
+      {{#if isConnected}}
+      <li class="nav-item">
+        <a class="nav-link" href="/profile"><i class="fas fa-user-circle fa-2x"></i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/data-capture"><i class="fas fa-map-marker-alt fa-2x"></i></a>
+      </li>
+      {{/if}}
+    </ul>
+    <ul class="navbar-nav mr-sm-2">
+      {{#if isConnected}}
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt fa-2x"></i></a>
+      </li>
+      {{else}}
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/login"><i class="fas fa-sign-in-alt fa-2x"></i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/signup"><i class="fas fa-user-plus fa-2x"></i></a>
+      </li>
+      {{/if}}
+    </ul>
+    </div>
   </nav>
 
   {{{body}}}
@@ -32,6 +60,7 @@
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
   <script src="/javascripts/script.js"></script>
-</body>
 
+  
+</body>
 </html>

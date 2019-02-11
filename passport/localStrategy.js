@@ -19,7 +19,7 @@ passport.use(new LocalStrategy({
         return;
       }
       if(foundUser.status != "Active"){
-        done(null, false, { message: 'Account is not activated'});
+        done(null, false, { message: 'You account is not activated yet'});
         return;
       }
 

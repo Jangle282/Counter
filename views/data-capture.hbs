@@ -1,1 +1,29 @@
-<h2>data-capture</h2>
+<div class="container">
+  <h2>Send your location</h2>
+  <div id="map"></div>
+  <br>
+  <form action="/submit-data" method="POST">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="project">Project</label>
+      </div>
+      <select class="custom-select" id="role" name="role">
+        {{#each projects}}
+          <option value={{projectName}}>{{projectName}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="comment">Comment</label>
+      </div>
+      <textarea class="form-control" type = "text" name="comment" placeholder="Place your comments here... "></textarea>
+    </div>
+</div>
+
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZDe4B_Awc9Wy8Mzh5DGzeMW98KOD3Vns"></script>
+<script type="text/javascript" src="/javascripts/main.js"></script>
+
