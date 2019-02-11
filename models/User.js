@@ -6,6 +6,15 @@ const userSchema = new Schema({
   lastName: String,
   email: String,
   password: String,
+  confirmationCode: {
+    type: String,
+    unique: true
+  },
+  status: {
+    type: String,
+    enum: ["Pending Confirmation", "Active", "Pending Confirmation"],
+    default: "Pending Confirmation"
+  },
   role: {type: String, enum: ['participant', 'researcher', 'admin'], default: 'participant'},
   profilePicPath: {
     type: String,

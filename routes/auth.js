@@ -1,7 +1,10 @@
 const express = require("express");
 const passport = require('passport');
-const router = express.Router();
 const User = require("../models/User");
+const {transporter, createConfirmationCode} = require("../configs/emailTransporter");
+const emailTemplate = require("../configs/confirmationEmail").template;
+
+const router = express.Router();
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -40,13 +43,24 @@ router.post("/signup", (req, res, next) => {
 
     const salt = bcrypt.genSaltSync(bcryptSalt);
     const hashPass = bcrypt.hashSync(password, salt);
+    const confirmationCode = createConfirmationCode();
 
     const newUser = new User({
       firstName, lastName, email, role,
-      password: hashPass
+      password: hashPass,
+      confirmationCode
     });
 
-    newUser.save()
+    Promise.all([
+      newUser.save(),
+      transporter.sendMail({
+        from: '"Data Counter" <irondatacounter@project.com>',
+        to: email,
+        subject: "Activate your account",
+        text: `Hello ${firstName} ${lastName}! Thank you for joining Data Counter! Please confirm your registration by clicking the following link: 
+        "http://localhost:3000/auth/confirm/${confirmationCode}"`,
+        html: emailTemplate(firstName, lastName, confirmationCode)})
+    ])
     .then(() => {
       //if (projectSelected)  - create object ProjectUser
       res.redirect("/");
@@ -56,6 +70,18 @@ router.post("/signup", (req, res, next) => {
     })
   });
 });
+
+router.get("/confirm/:confirmCode", (req, res, next) => {
+  User.findOneAndUpdate(
+    {confirmationCode: req.params.confirmCode}, 
+    {status: "Active"}
+    )
+    .then(user => {
+      res.redirect("/")
+    })
+    .catch(err => 
+      res.render("activation-error"))
+})
 
 router.get("/logout", (req, res) => {
   req.logout();
