@@ -12,7 +12,7 @@ const userSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ["Pending Confirmation", "Active", "Pending Confirmation"],
+    enum: ["Pending Confirmation", "Active"],
     default: "Pending Confirmation"
   },
   role: {type: String, enum: ['participant', 'researcher', 'admin'], default: 'participant'},
