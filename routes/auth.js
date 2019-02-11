@@ -5,6 +5,7 @@ const Project = require('../models/Project')
 const ProjectUser = require('../models/ProjectUser')
 const {transporter, createConfirmationCode} = require("../configs/emailTransporter");
 const emailTemplate = require("../configs/confirmationEmail").template;
+const {isConnected} = require("../configs/middlewares")
 
 const router = express.Router();
 
@@ -98,7 +99,7 @@ router.get("/confirm/:confirmCode", (req, res, next) => {
       res.render("activation-error"))
 })
 
-router.get("/logout", (req, res) => {
+router.get("/logout", isConnected, (req, res) => {
   req.logout();
   res.redirect("/");
 });
