@@ -11,7 +11,7 @@ const projectSchema = new Schema({
   status: {
     type: String,
     enum: ['private', 'public', 'closed'],
-    default: 'private'
+    default: 'public'
   }
 }, {
   timestamps: {

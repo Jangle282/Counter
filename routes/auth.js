@@ -26,6 +26,7 @@ router.get("/signup", (req, res, next) => {
 router.post("/signup", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
+  //add variabl for join selections
   if (username === "" || password === "") {
     res.render("auth/signup", { message: "Indicate username and password" });
     return;
@@ -47,6 +48,7 @@ router.post("/signup", (req, res, next) => {
 
     newUser.save()
     .then(() => {
+      //if (projectSelected)  - create object ProjectUser
       res.redirect("/");
     })
     .catch(err => {
