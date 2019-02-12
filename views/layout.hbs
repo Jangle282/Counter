@@ -14,38 +14,40 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-sm navbar-light " style="background-color: #e3f2fd;">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/"><i class="fas fa-home fa-2x"></i></a>
-      </li>
-      {{#if isConnected}}
-      <li class="nav-item">
-        <a class="nav-link" href="/profile"><i class="fas fa-user-circle fa-2x"></i></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/data-capture"><i class="fas fa-map-marker-alt fa-2x"></i></a>
-      </li>
-      {{/if}}
-    </ul>
-    <ul class="navbar-nav mr-sm-2">
-      {{#if isConnected}}
-      <li class="nav-item">
-        <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt fa-2x"></i></a>
-      </li>
-      {{else}}
-      <li class="nav-item">
-        <a class="nav-link" href="/auth/login"><i class="fas fa-sign-in-alt fa-2x"></i></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/auth/signup"><i class="fas fa-user-plus fa-2x"></i></a>
-      </li>
-      {{/if}}
-    </ul>
+  <nav class="navbar navbar-expand navbar-light " style="background-color: #e3f2fd;">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/"><i class="fas fa-home fa-2x"></i></a>
+        </li>
+        {{#if isConnected}}
+        <li class="nav-item">
+          <a class="nav-link" href="/profile"><i class="fas fa-user-circle fa-2x"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/data-capture"><i class="fas fa-map-marker-alt fa-2x"></i></a>
+        </li>
+        {{/if}}
+      </ul>
+      <ul class="navbar-nav mr-sm-2">
+        {{#if isConnected}}
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt fa-2x"></i></a>
+        </li>
+        {{else}}
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/login"><i class="fas fa-sign-in-alt fa-2x"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/signup"><i class="fas fa-user-plus fa-2x"></i></a>
+        </li>
+        {{/if}}
+      </ul>
+      </div>
     </div>
   </nav>
 

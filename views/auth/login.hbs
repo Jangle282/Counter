@@ -1,29 +1,29 @@
 <div class="container">
-<h2>Login</h2>
-<br>
-<form action="/auth/login" method="POST">
-  <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="email">Email</label>
-      </div>
-      <input class="form-control" id="email" type="email" name="email" placeholder="jon.snow@gmail.com">
-  </div>
-  <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="password">Password</label>
-      </div>
-      <input class="form-control" id="password" type="password" name="password" placeholder="Your password">
-  </div>
+  <h2>Login</h2>
+  <br>
 
-  {{#if message }}
+
+  <form action="/auth/login" method="POST">
+    <div class="form-group row">
+      <label for="email" class="col-3 col-form-label">Email</label>
+      <input class="col-9 form-control" id="email" type="email" name="email" placeholder="Your email">
+    </div>
+
+    <div class="form-group row">
+      <label for="inputPassword" class="col-3 col-form-label">Password</label>
+      <input class="col-9 form-control" id="password" type="password" name="password" placeholder="Your password">
+    </div>
+
+    {{#if message }}
     <div class="error-message">{{ message }}</div>
-  {{/if}}
+    {{/if}}
 
-  <button class="btn btn-primary">Login</button>
-  <br><br>
-  <p class="account-message">
-    Don't have an account yet?
-    <a href="/auth/signup">Signup</a>
-  </p>
+    <button class="btn btn-primary">Login</button>
+    <br><br>
+    <p class="account-message">
+      Don't have an account yet?
+      <a href="/auth/signup">Signup!</a>
+    </p>
+</div>
 </form>
 </div>
