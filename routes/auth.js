@@ -5,7 +5,7 @@ const Project = require('../models/Project')
 const ProjectUser = require('../models/ProjectUser')
 const {transporter, createConfirmationCode} = require("../configs/emailTransporter");
 const emailTemplate = require("../configs/confirmationEmail").template;
-const {isConnected} = require("../configs/middlewares")
+const {isConnected, isNotConnected} = require("../configs/middlewares")
 
 const router = express.Router();
 
@@ -13,7 +13,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const bcryptSalt = 10;
 
-router.get("/login", (req, res, next) => {
+router.get("/login", isNotConnected, (req, res, next) => {
   res.render("auth/login", { "message": req.flash("error") });
 });
 
@@ -24,7 +24,7 @@ router.post("/login", passport.authenticate("local", {
   passReqToCallback: true
 }));
 
-router.get("/signup", (req, res, next) => {
+router.get("/signup", isNotConnected, (req, res, next) => {
   Project.find()
   .then(projects => {
     res.render("auth/signup", {projects});

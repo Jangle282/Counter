@@ -24,7 +24,8 @@ router.get('/data-capture', isConnected, (req, res, next) => {
 });
 
 router.get("/profile", isConnected, (req,res,next) => {
-  res.render("profile")
+  let user = req.user
+  res.render("profile", {user})
 })
 
 module.exports = router;

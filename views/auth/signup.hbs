@@ -1,61 +1,51 @@
 <div class="container">
-<h2>Signup</h2>
-<br>
-  <form action="/auth/signup" method="POST">
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="role">Role</label>
-      </div>
-      <select class="custom-select" id="role" name="role">
+  <h2>Signup</h2>
+  <br>
+
+  <form action="/auth/login" method="POST">
+    <div class="form-group row">
+      <label class="col-3 col-form-label" for="role">Role</label>
+      <select class="col-9 form-control" id="role" name="role">
         <option value="participant">Participant</option>
         <option value="researcher">Researcher</option>
       </select>
     </div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="project">Project</label>
-      </div>
-      <select multiple class="custom-select" id="project" name="project">
+    <div class="form-group row">
+      <label class="col-3 col-form-label" for="project">Project</label>
+      <select multiple class="col-9 form-control" id="project" name="project">
         <option value="">--Join a project--</option>
         {{#each projects}}
         <option value="{{this.projectName}}">{{this.projectName}}</option>
         {{/each}}
       </select>
     </div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="firstName">First Name</label>
-      </div>
-      <input class="form-control" id="firstName" type="text" name="firstName" placeholder="Jon" required>
+    <div class="form-group row">
+      <label class="col-3 col-form-label" for="firstName">First Name</label>
+      <input class="col-9 form-control" id="firstName" type="text" name="firstName" placeholder="Jon" required>
     </div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="lastName">Last Name</label>
-      </div>
-      <input class="form-control" id="lastName" type="text" name="lastName" placeholder="Snow" required>
+    <div class="form-group row">
+      <label class="col-3 col-form-label" for="lastName">Last Name</label>
+      <input class="col-9 form-control" id="lastName" type="text" name="lastName" placeholder="Snow" required>
     </div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="email">Email</label>
-      </div>
-      <input class="form-control" id="email" type="email" name="email" placeholder="jon.snow@gmail.com" required>
+    <div class="form-group row">
+      <label for="email" class="col-3 col-form-label">Email</label>
+      <input class="col-9 form-control" id="email" type="email" name="email" placeholder="Your email">
     </div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="password">Password</label>
-      </div>
-      <input class="form-control" id="password" type="password" name="password" placeholder="Your password" required>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-3 col-form-label">Password</label>
+      <input class="col-9 form-control" id="password" type="password" name="password" placeholder="Your password">
     </div>
-    
+
     {{#if message }}
     <div class="error-message">{{ message }}</div>
     {{/if}}
 
-    <button class="btn btn-primary">Create account</button>
-<br><br>
+    <button class="btn btn-primary">Login</button>
+    <br><br>
     <p class="account-message">
-      Do you already have an account?
-      <a href="/auth/login">Login</a>
+      Don't have an account yet?
+      <a href="/auth/signup">Signup!</a>
     </p>
-  </form>
+</div>
+</form>
 </div>
