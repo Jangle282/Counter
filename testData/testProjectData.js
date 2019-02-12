@@ -11,13 +11,13 @@ let projects = [
   }),
   new Project ({
     projectName: 'Dogs',
-    description: "The WeWork building at Potsdamer platz has been overrun by alien creatures masquerading as cute small cute dogs,",
+    description: "The WeWork building at Potsdamer platz has been overrun by alien creatures masquerading as cute small dogs,",
     _owner: users[0]._id,
     status: 'public',
   }),
   new Project ({
     projectName: 'Rough sleepers',
-    description: "We don't think the authorities are counting the correct number of people rough sleeping and want to collect our own data on the number of people sleeping on the streets in Berlin.",
+    description: "We don't think the authorities are counting the correct number of people rough sleeping on the street in Berlin and want to collect our own data",
     _owner: users[1]._id,
     status: 'public',
   }),
