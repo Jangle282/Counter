@@ -71,15 +71,15 @@ router.post("/signup", (req, res, next) => {
       for (let i in project)  {
       Project.find({ projectName: project[i]})
       .then((project) => {
-        console.log(project)
         const newProjectUser = new ProjectUser ({
-          _project: project[0]._id,
+          _project: project[0]._id, // there's a but here somehow when only one project is selected... 
           _participant: participantId,
           })
           newProjectUser.save() 
         })
       }
-    res.redirect("/");
+    res.render("auth/signupSuccess");
+    
     }) 
     .catch(err => {
       res.render("auth/signup", { message: "Something went wrong" });
