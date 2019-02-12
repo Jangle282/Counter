@@ -3,6 +3,7 @@ const router  = express.Router();
 const Project = require("../models/Project")
 const User = require("../models/User")
 const ProjectUser = require("../models/ProjectUser")
+const DataPoint = require("../models/DataPoint")
 const {isConnected} = require("../configs/middlewares")
 
 /* GET home page */
@@ -25,8 +26,17 @@ router.get('/data-capture', isConnected, (req, res, next) => {
 });
 
 router.get("/profile", isConnected, (req,res,next) => {
-  let user = req.user
-  res.render("profile", {user})
+  Promise.all([
+    Project.find({'_owner': req.user._id}),
+    ProjectUser.find({'_participant': req.user._id})
+      .populate('_project')
+  ])
+    .then(result => {
+      let user = req.user
+      let projectsIown = result[0]
+      let projectsIparticipateIn = result[1]
+			res.render('profile', {user, projectsIown, projectsIparticipateIn})
+    })
 })
 
 router.get("/edit-profile", isConnected, (req,res,next) => {
@@ -45,9 +55,20 @@ router.post("/edit-profile", isConnected, (req,res,next) => {
     'email': email, 
     'role': role}
     })
-    .then((user) => res.redirect("/profile"))
+    .then(() => res.redirect("/profile"))
     .catch(err => next(err))
 })
 
-
+router.post("/new-project", isConnected, (req,res,next) => {
+  let newProject = new Project ({
+    projectName: req.body.projectName,
+    description: req.body.description,
+    _owner: req.user._id,
+    status: 'public',
+  })
+  console.log(newProject)
+  newProject.save()
+    .then(() => res.redirect("/profile"))
+    .catch(err => next(err))
+})
 module.exports = router;
