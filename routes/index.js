@@ -6,7 +6,7 @@ const ProjectUser = require("../models/ProjectUser")
 const DataPoint = require("../models/DataPoint")
 const {isConnected} = require("../configs/middlewares")
 
-/* GET home page */
+// routes for home page
 router.get('/', (req, res, next) => {
   // passing ProjectUser docs for logged in users and all Projects docs to the view if user is logged in
   if (req.user) {
@@ -35,6 +35,7 @@ router.get('/', (req, res, next) => {
   }
 });
 
+// routes for data capture
 router.get('/data-capture', isConnected, (req, res, next) => {
   //finding all the projects which user participates in
   ProjectUser.find({ '_participant': req.user._id })
@@ -49,6 +50,7 @@ router.get('/data-capture', isConnected, (req, res, next) => {
     .catch(err => next(err))
 });
 
+// routes for user profile
 router.get("/profile", isConnected, (req,res,next) => {
   Promise.all([
     Project.find({'_owner': req.user._id}),
@@ -86,6 +88,7 @@ router.post("/edit-profile", isConnected, (req, res, next) => {
     .catch(err => next(err))
 })
 
+// routes for CRUD on projects
 router.post("/new-project", isConnected, (req,res,next) => {
   let newProject = new Project ({
     projectName: req.body.projectName,
@@ -98,4 +101,28 @@ router.post("/new-project", isConnected, (req,res,next) => {
     .then(() => res.redirect("/profile"))
     .catch(err => next(err))
 })
+
+router.get("/join/:projectId", isConnected, (req,res,next) => {
+  let newProjectUser = new ProjectUser ({
+    _project: req.params.projectId,
+    _participant: req.user._id
+  })
+  newProjectUser.save()
+  .then(() => {
+    res.redirect("/")
+  })
+  .catch(err => next(err))
+})
+
+router.get("/leave/:projectId", isConnected, (req,res,next) => {
+  let id = req.params.projectId  
+  console.log(id) //5c63137ff938dc20a9ef56e9
+  console.log(req.user._id) //5c6316193b824d2171574445
+  ProjectUser.findOneAndDelete({ $and: [{_participant: req.user._id},{_project: id}]})
+    .then(() => { 
+      res.redirect("/")
+    })
+    .catch(err => next(err))
+  })
+
 module.exports = router;
