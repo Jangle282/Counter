@@ -1,3 +1,5 @@
+const ProjectUser = require("../models/ProjectUser")
+
 module.exports = {
   //middleware that checks if user is connected
   isConnected: function(req, res, next){
@@ -7,5 +9,5 @@ module.exports = {
     else {
       res.redirect('/auth/login')
     }
-  },
+  }
 }

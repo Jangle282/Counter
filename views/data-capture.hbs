@@ -1,4 +1,8 @@
 <div class="container">
+  {{#if message }}
+    <h2>{{ message }}</h2>
+    <h3>Visit our <a href="/">homepage</a> to find one 🔍</h3>
+  {{else}}
   <h2>Send your location</h2>
   <div id="map"></div>
   <br>
@@ -9,7 +13,7 @@
       </div>
       <select class="custom-select" id="role" name="role">
         {{#each projects}}
-          <option value={{projectName}}>{{projectName}}</option>
+          <option value={{_project.projectName}}>{{_project.projectName}}</option>
         {{/each}}
       </select>
     </div>
@@ -19,6 +23,7 @@
       </div>
       <textarea class="form-control" type = "text" name="comment" placeholder="Place your comments here... "></textarea>
     </div>
+  {{/if}}
 </div>
 
 
