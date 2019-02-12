@@ -1,3 +1,65 @@
 <div class="container">
-  <h1>Welcome to Data Counter!</h1>
+  
+  <div class="row">
+    <div class="col-12" align="center">
+      <h1>Data Counter!</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12" align="center">
+      <img src="../images/tallymarksSm.png" alt="tallies" class="homeHeader" height="80px">  
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12" >
+      <h4>What is it?</h4>
+      <p>Data counter enables researchers and volunteers to collaborate remotely to collect the data they care about. You can create your own project or get involved with one of the projects below</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h4>Current Projects</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <table class="table table-hover">
+        <thead class="thead-primary table-dark text-center">
+          {{!-- <tr class="bg-primary ">
+            <th>Project</th>
+            <th>Description</th>
+            <th>Join</th>
+          </tr> --}}
+        </thead>
+        <tbody>
+        {{#each projects}}
+          <tr>
+            <td class="align-middle">
+              <p>{{this.projectName}}</p>
+            </td>
+            {{!-- <td class="align-middle text-left">
+              <p>{{this.description}}</p>
+            </td> --}}
+            <td class="align-middle text-center">
+              <form action="/join/{{this._id}}" method="GET">
+  {{!-- {{#if isConnected}}
+  <p>Connected</p>
+  {{else}}
+  <p>not connected</p>
+  {{/if}} --}}
+                <button class="btn btn-outline-success">Join this Project</button>
+              </form>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
+{{!-- style="background-image: url(); background-repeat: no-repeat; background-size: cover; background-position: center center;" --}}

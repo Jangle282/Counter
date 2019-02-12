@@ -8,7 +8,10 @@ const {isConnected} = require("../configs/middlewares")
 
 /* GET home page */
 router.get('/', (req, res, next) => {
-  res.render('index');
+  Project.find()
+    .then((projects) => {
+      res.render('index', {projects});
+    })
 });
 
 router.get('/data-capture', isConnected, (req, res, next) => {
