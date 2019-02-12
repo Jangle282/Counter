@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const Project = require("../models/Project")
+const User = require("../models/User")
 const ProjectUser = require("../models/ProjectUser")
 const {isConnected} = require("../configs/middlewares")
 
@@ -30,5 +31,26 @@ router.get("/profile", isConnected, (req,res,next) => {
   let user = req.user
   res.render("profile", {user})
 })
+
+router.get("/edit-profile", isConnected, (req,res,next) => {
+  let user = req.user
+  let isParticipant = true
+  if(req.user.role === "researcher") isParticipant = false;
+  res.render("edit-profile", {user, isParticipant})
+})
+
+router.post("/edit-profile", isConnected, (req,res,next) => {
+  let userId = req.user._id
+  let {firstName, lastName, email, role} = req.body
+  User.findOneAndUpdate({'_id': userId}, 
+    {$set: {'firstName': firstName, 
+    'lastName': lastName, 
+    'email': email, 
+    'role': role}
+    })
+    .then((user) => res.redirect("/profile"))
+    .catch(err => next(err))
+})
+
 
 module.exports = router;
