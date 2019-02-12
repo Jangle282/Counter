@@ -79,7 +79,6 @@ router.post("/signup", (req, res, next) => {
         })
       }
     res.render("auth/signupSuccess");
-    
     }) 
     .catch(err => {
       res.render("auth/signup", { message: "Something went wrong" });

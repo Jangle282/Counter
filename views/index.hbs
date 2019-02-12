@@ -1,5 +1,5 @@
 <div class="container">
-  
+
   <div class="row">
     <div class="col-12" align="center">
       <h1>Data Counter!</h1>
@@ -8,14 +8,15 @@
 
   <div class="row">
     <div class="col-12" align="center">
-      <img src="../images/tallymarksSm.png" alt="tallies" class="homeHeader" height="80px">  
+      <img src="../images/tallymarksSm.png" alt="tallies" class="homeHeader" height="80px">
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12" >
+    <div class="col-12">
       <h4>What is it?</h4>
-      <p>Data counter enables researchers and volunteers to collaborate remotely to collect the data they care about. You can create your own project or get involved with one of the projects below</p>
+      <p>Data counter enables researchers and volunteers to collaborate remotely to collect the data they care about.
+        You can create your own project or get involved with one of the projects below</p>
     </div>
   </div>
 
@@ -24,42 +25,58 @@
       <h4>Current Projects</h4>
     </div>
   </div>
-
   <div class="row">
     <div class="col">
       <table class="table table-hover">
         <thead class="thead-primary table-dark text-center">
-          {{!-- <tr class="bg-primary ">
-            <th>Project</th>
-            <th>Description</th>
-            <th>Join</th>
-          </tr> --}}
         </thead>
         <tbody>
-        {{#each projects}}
+          {{#if isConnected}}
+          {{#each projects}}
           <tr>
             <td class="align-middle">
               <p>{{this.projectName}}</p>
             </td>
-            {{!-- <td class="align-middle text-left">
-              <p>{{this.description}}</p>
-            </td> --}}
+            {{#if this.isJoined}}
             <td class="align-middle text-center">
-              <form action="/join/{{this._id}}" method="GET">
-  {{!-- {{#if isConnected}}
-  <p>Connected</p>
-  {{else}}
-  <p>not connected</p>
-  {{/if}} --}}
-                <button class="btn btn-outline-success">Join this Project</button>
+              <button class="btn btn-success">Joined</button>
+            </td>
+            <td class="align-middle text-center">
+              <form action="/leave/{{this.projectId}}" method="GET">
+                <button class="btn btn-outline-danger">Leave</button>
+              </form>
+            </td>
+            {{#if this.isOwner}}
+            <td class="align-middle text-center">
+              <p>You are the owner</p>
+            </td>
+            {{/if}}
+            {{else}}
+            <td class="align-middle text-center">
+              <form action="/join/{{this.projectId}}" method="GET">
+                <button class="btn btn-outline-success">Join</button>
+              </form>
+            </td>
+            {{/if}}
+          </tr>
+          {{/each}}
+          {{else}}
+          {{#each projects}}
+          <tr>
+            <td class="align-middle">
+              <p>{{this.projectName}}</p>
+            </td>
+            <td class="align-middle text-center">
+              <form action="/auth/login" method="GET">
+                <button class="btn btn-outline-success">Join</button>
               </form>
             </td>
           </tr>
           {{/each}}
+          {{/if}}
         </tbody>
       </table>
     </div>
   </div>
 
 </div>
-{{!-- style="background-image: url(); background-repeat: no-repeat; background-size: cover; background-position: center center;" --}}
