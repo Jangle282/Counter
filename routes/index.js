@@ -116,8 +116,6 @@ router.get("/join/:projectId", isConnected, (req,res,next) => {
 
 router.get("/leave/:projectId", isConnected, (req,res,next) => {
   let id = req.params.projectId  
-  console.log(id) //5c63137ff938dc20a9ef56e9
-  console.log(req.user._id) //5c6316193b824d2171574445
   ProjectUser.findOneAndDelete({ $and: [{_participant: req.user._id},{_project: id}]})
     .then(() => { 
       res.redirect("/")
