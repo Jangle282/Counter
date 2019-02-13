@@ -35,14 +35,14 @@
           {{#each projects}}
           <tr>
             <td class="align-middle">
-              <p>{{this.projectName}}</p>
+              <a href="/project/{{this.project_id}}">{{this.projectName}}</a>
             </td>
             {{#if this.isJoined}}
             <td class="align-middle text-center">
               <button class="btn btn-success">Joined</button>
             </td>
             <td class="align-middle text-center">
-              <form action="/leave/{{this.projectId}}" method="GET">
+              <form action="/leave/{{this.project_id}}" method="GET">
                 <button class="btn btn-outline-danger">Leave</button>
               </form>
             </td>

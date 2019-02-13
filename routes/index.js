@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
       .then(([projects, projectUsers]) => {
         res.render('index', { 
           projects: projects.map(project => ({
-            projectId: project._id,
+            project_id: project._id,
             projectName: project.projectName,
             description: project.description,
             _owner: project._owner,
