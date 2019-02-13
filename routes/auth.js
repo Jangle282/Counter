@@ -74,7 +74,6 @@ router.post("/signup", (req, res, next) => {
       for (let i in projects)  {
       Project.find({ projectName: projects[i]})
       .then((projects) => {
-        console.log(projects)
         const newProjectUser = new ProjectUser ({
           _project: projects[0]._id, // there's a but here somehow when only one project is selected... 
           _participant: participantId,

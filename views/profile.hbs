@@ -28,7 +28,7 @@
     <br>
       {{#each projectsIown}}
         <div class="row">
-          <div class="col-3">{{projectName}}</div>
+          <div class="col-3"><a href="/project/{{_id}}">{{projectName}}</a></div>
           <div class="col-7">{{description}}</div>
           <div class="col-2">
             <form action="/project/{{_id}}" method="GET">
@@ -61,7 +61,7 @@
     <br>
       {{#each projectsIparticipateIn}}
         <div class="row">
-          <div class="col-3">{{_project.projectName}}</div>
+          <div class="col-3"><a href="/project/{{_project.id}}">{{_project.projectName}}</a></div>
           <div class="col-7">{{_project.description}}</div>
           <div class="col-2">
             <form action="">
