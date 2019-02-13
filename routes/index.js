@@ -69,9 +69,21 @@ router.post("/new-project", isConnected, (req,res,next) => {
     _owner: req.user._id,
     status: 'public',
   })
-  console.log(newProject)
   newProject.save()
     .then(() => res.redirect("/profile"))
     .catch(err => next(err))
+})
+
+router.get("/project/:projectId", isConnected, (req,res,next) => {
+  Promise.all([
+    Project.findOne({'_id': req.params.projectId}),
+    DataPoint.find({'_project': req.params.projectId})
+  ])
+    .then(results => {
+      console.log(results)
+      let project = results[0]
+      let dataPoints = results[1]
+      res.render("project-data", {project, dataPoints})
+    })
 })
 module.exports = router;
