@@ -32,9 +32,12 @@ router.get("/signup", isNotConnected, (req, res, next) => {
 });
 
 router.post("/signup", (req, res, next) => {
-  const {firstName, lastName, email, password, role, project} = req.body;
   
-  //add variabl for join selections
+  const {firstName, lastName, email, password, role, project } = req.body;
+  var projects = []
+  if (typeof req.body.project === 'string') projects.push(req.body.project)
+  else {var projects = project}
+
   if (firstName === "" || lastName === "" || email === "" || password === "") {
     res.render("auth/signup", { message: "Please indicate your name, email and password" });
     return;
@@ -68,11 +71,12 @@ router.post("/signup", (req, res, next) => {
     ])
     .then((results) => {
       var participantId = results[0]._id
-      for (let i in project)  {
-      Project.find({ projectName: project[i]})
-      .then((project) => {
+      for (let i in projects)  {
+      Project.find({ projectName: projects[i]})
+      .then((projects) => {
+        console.log(projects)
         const newProjectUser = new ProjectUser ({
-          _project: project[0]._id, // there's a but here somehow when only one project is selected... 
+          _project: projects[0]._id, // there's a but here somehow when only one project is selected... 
           _participant: participantId,
           })
           newProjectUser.save() 
