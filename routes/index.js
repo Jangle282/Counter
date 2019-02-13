@@ -96,12 +96,29 @@ router.post("/new-project", isConnected, (req,res,next) => {
     _owner: req.user._id,
     status: 'public',
   })
-  console.log(newProject)
   newProject.save()
+    .then((project) => {
+      let newCard = new ProjectUser ({
+        _project: project.id,
+        _participant: req.user._id
+      })
+      newCard.save()
+    })
     .then(() => res.redirect("/profile"))
     .catch(err => next(err))
 })
 
+router.get("/project/:projectId", isConnected, (req,res,next) => {
+  Promise.all([
+    Project.findOne({'_id': req.params.projectId}),
+    DataPoint.find({'_project': req.params.projectId})
+  ])
+    .then(results => {
+      let project = results[0]
+      let dataPoints = results[1]
+      res.render("project-data", {project, dataPoints})
+    })
+})
 router.get("/join/:projectId", isConnected, (req,res,next) => {
   let newProjectUser = new ProjectUser ({
     _project: req.params.projectId,
@@ -123,4 +140,16 @@ router.get("/leave/:projectId", isConnected, (req,res,next) => {
     .catch(err => next(err))
   })
 
+router.post("/delete-project/:projectId", isConnected, (req,res,next) => {
+  let projectId = req.params.projectId
+  Promise.all([
+    Project.findOneAndDelete({"_id": projectId}),
+    ProjectUser.deleteMany({"_project": projectId}),
+    DataPoint.deleteMany({"_project": projectId})
+  ])
+    .then(results => {
+      let project = results[0]
+      res.render("project-deleted", {project})
+    })
+})
 module.exports = router;

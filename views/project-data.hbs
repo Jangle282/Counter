@@ -1,1 +1,91 @@
-<h2>project-data</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3 mt-3">
+      <h3 class="mb-0">{{project.projectName}}</h3>
+    </div>
+    <div class="col-sm-7 mt-3">{{project.description}} </div>
+    <div class="col-sm-2 mt-3">
+      <form action="/delete-project/{{project._id}}" method="POST">
+        <button class="btn btn-outline-danger">DELETE</button>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div id="map-all"></div>
+  </div>
+</div>
+
+<!--  Axios CDN  -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!--  Google Maps Key  -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZDe4B_Awc9Wy8Mzh5DGzeMW98KOD3Vns"></script>
+<!--  Connect map-all.js  -->
+{{!-- <script type="text/javascript" src="/javascripts/map-all.js"></script> --}}
+<script>
+  function startMap() {
+    if (navigator.geolocation) {
+      // Get current position
+      navigator.geolocation.getCurrentPosition(function (position) {
+        center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        //show the map centered to the current position
+        var map = new google.maps.Map(
+          document.getElementById('map-all'),
+          {
+            zoom: 10,
+            center: center
+          }
+        );
+        //add a marker with the current position to the map
+        console.log('placing first marker')
+        const currentPositionMarker = new google.maps.Marker({
+          position: {
+            lat: center.lat,
+            lng: center.lng
+          },
+          map: map,
+          icon: {
+            url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+          },
+          title: "You are here"
+        });
+        //get the datapoints
+        let markers = [];
+        axios.get("/api/data-points/{{project._id}}")
+          .then(response => {
+            let dataPoints = response.data;
+            dataPoints.forEach(function (datapoint) {
+              //get the position of each datapoint
+              const center = {
+                lat: datapoint.location.coordinates[0],
+                lng: datapoint.location.coordinates[1]
+              };
+              //create a marker for each datapoint
+              const pin = new google.maps.Marker({
+                position: center,
+                map: map,
+                icon: {
+                  url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                },
+                title: datapoint.comment
+              });
+              markers.push(pin);
+            })
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      }, function () {
+        // If something goes wrong
+        console.log('Error in the geolocation service.');
+      })
+    } else {
+      // Browser says: Nah! I do not support this.
+      console.log('Browser does not support geolocation.');
+    }
+  }
+
+  startMap();
+</script>
