@@ -119,6 +119,7 @@ router.get("/project/:projectId", isConnected, (req,res,next) => {
       res.render("project-data", {project, dataPoints})
     })
 })
+
 router.get("/join/:projectId", isConnected, (req,res,next) => {
   let newProjectUser = new ProjectUser ({
     _project: req.params.projectId,
