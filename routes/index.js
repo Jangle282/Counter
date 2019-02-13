@@ -88,7 +88,7 @@ router.post("/edit-profile", isConnected, (req, res, next) => {
     .catch(err => next(err))
 })
 
-// routes for CRUD on projects
+// routes for CRUD on projects & project-data page
 router.post("/new-project", isConnected, (req,res,next) => {
   let newProject = new Project ({
     projectName: req.body.projectName,
@@ -111,7 +111,7 @@ router.post("/new-project", isConnected, (req,res,next) => {
 router.get("/project/:projectId", isConnected, (req,res,next) => {
   Promise.all([
     Project.findOne({'_id': req.params.projectId}),
-    DataPoint.find({'_project': req.params.projectId})
+    DataPoint.find({'_project': req.params.projectId}).populate('_user')
   ])
     .then(results => {
       let project = results[0]
@@ -153,4 +153,8 @@ router.post("/delete-project/:projectId", isConnected, (req,res,next) => {
       res.render("project-deleted", {project})
     })
 })
+
+
+
+// routes for DataPoints
 module.exports = router;

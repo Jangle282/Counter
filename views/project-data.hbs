@@ -13,6 +13,34 @@
   <div class="row">
     <div id="map-all"></div>
   </div>
+
+<div class="row">
+    <div class="col mt-3">
+      <p>Participant Name</p>
+    </div>
+    <div class="col mt-3">
+      <p>Comments</p>      
+    </div>
+    <div class="col mt-3">
+      <p>When Collected</p>
+    </div>
+  </div>
+  {{#each dataPoints}}
+  <div class="row">
+    <div class="col mt-3">
+      <p>{{this._user.firstName}} {{this._user.lastName}}</p>
+    </div>
+    <div class="col mt-3">
+      <p>{{this.comment}}</p>
+    </div>
+    <div class="col mt-3">
+      <p>{{this.created_at}}</p>      
+    </div>
+  </div>
+  {{/each}}
+
+      {{dataPoints.[0]}}
+
 </div>
 
 <!--  Axios CDN  -->
