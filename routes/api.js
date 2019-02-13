@@ -7,7 +7,7 @@ const DataPoint = require("../models/DataPoint")
 const {isConnected} = require("../configs/middlewares")
 
 router.get('/data-points/:projectId', (req, res, next) => {
-  DataPoint.find({'_project': req.params.projectId})
+  DataPoint.find({'_project': req.params.projectId}).populate('_user')
     .then((dataPoints) => {
       res.json(dataPoints);
     })

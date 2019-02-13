@@ -59,6 +59,7 @@
           lng: position.coords.longitude
         };
         //show the map centered to the current position
+        let lastWindow = null;
         var map = new google.maps.Map(
           document.getElementById('map-all'),
           {
@@ -79,14 +80,17 @@
         });
         //making the current position marker clickable and displaying "You are here" on click
         const infowindow = new google.maps.InfoWindow({
-          content: "You are here"
+          content: `You are here`
         });
         currentPositionMarker.addListener('click', function() {
+            if (lastWindow) lastWindow.close();
             infowindow.open(map, currentPositionMarker);
+            lastWindow = infowindow;
           })
         //get the datapoints
         const markers = [];
         const infoWindows = [];
+        
         axios.get("/api/data-points/{{project._id}}")
           .then(response => {
             let dataPoints = response.data;
@@ -106,7 +110,13 @@
               });
               markers.push(pin);
               const infowindow = new google.maps.InfoWindow({
-                content: datapoint.comment
+                content: `<h6>${datapoint._user.firstName} ${datapoint._user.lastName}</h6>
+                          <form action="" method="">
+                              <button class="btn"><i class="fas fa-trash"></i></button>
+                          </form>
+                          <form action="" method="">
+                              <button class="btn"><i class="fas fa-envelope"></i></>
+                          </form>`
               });
               infoWindows.push(infowindow);
             })
@@ -114,7 +124,9 @@
           .then(()=>{
             infoWindows.forEach(function(infowindow, index){
               markers[index].addListener('click', function() {
-                infowindow.open(map, markers[index])
+                if (lastWindow) lastWindow.close();
+                infowindow.open(map, markers[index]);
+                lastWindow = infowindow;
               })
             })
           })
