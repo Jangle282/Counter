@@ -16,7 +16,7 @@ const projectUser = require('../testData/testProjectUser')
 const bcryptSalt = 10;
 mongoose.set('useCreateIndex', true)
 mongoose
-  .connect(process.env.mongoDB_URI, {useNewUrlParser: true})
+  .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
