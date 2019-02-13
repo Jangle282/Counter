@@ -39,7 +39,6 @@
           }
         );
         //add a marker with the current position to the map
-        console.log('placing first marker')
         const currentPositionMarker = new google.maps.Marker({
           position: {
             lat: center.lat,
@@ -48,11 +47,18 @@
           map: map,
           icon: {
             url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-          },
-          title: "You are here"
+          }
         });
+        //making the current position marker clickable and displaying "You are here" on click
+        const infowindow = new google.maps.InfoWindow({
+          content: "You are here"
+        });
+        currentPositionMarker.addListener('click', function() {
+            infowindow.open(map, currentPositionMarker);
+          })
         //get the datapoints
-        let markers = [];
+        const markers = [];
+        const infoWindows = [];
         axios.get("/api/data-points/{{project._id}}")
           .then(response => {
             let dataPoints = response.data;
@@ -68,10 +74,20 @@
                 map: map,
                 icon: {
                   url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-                },
-                title: datapoint.comment
+                }
               });
               markers.push(pin);
+              const infowindow = new google.maps.InfoWindow({
+                content: datapoint.comment
+              });
+              infoWindows.push(infowindow);
+            })
+          })
+          .then(()=>{
+            infoWindows.forEach(function(infowindow, index){
+              markers[index].addListener('click', function() {
+                infowindow.open(map, markers[index])
+              })
             })
           })
           .catch(error => {
