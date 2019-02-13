@@ -1,82 +1,70 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-12" align="center">
+    <div class="col-sm-12" align="center">
       <h1>Data Counter!</h1>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12" align="center">
+    <div class="col-sm-12 mb-3" align="center">
       <img src="../images/tallymarksSm.png" alt="tallies" class="homeHeader" height="80px">
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12">
+    <div class="col-sm-12">
       <h4>What is it?</h4>
       <p>Data counter enables researchers and volunteers to collaborate remotely to collect the data they care about.
         You can create your own project or get involved with one of the projects below</p>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-12">
+  <div class="row mb-2">
+    <div class="col-sm-12">
       <h4>Current Projects</h4>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-      <table class="table table-hover">
-        <thead class="thead-primary table-dark text-center">
-        </thead>
-        <tbody>
           {{#if isConnected}}
-          {{#each projects}}
-          <tr>
-            <td class="align-middle">
-              <a href="/project/{{this.project_id}}">{{this.projectName}}</a>
-            </td>
-            {{#if this.isJoined}}
-            <td class="align-middle text-center">
-              <button class="btn btn-success">Joined</button>
-            </td>
-            <td class="align-middle text-center">
-              <form action="/leave/{{this.project_id}}" method="GET">
-                <button class="btn btn-outline-danger">Leave</button>
-              </form>
-            </td>
-            {{#if this.isOwner}}
-            <td class="align-middle text-center">
-              <p>You are the owner</p>
-            </td>
-            {{/if}}
-            {{else}}
-            <td class="align-middle text-center">
-              <form action="/join/{{this.projectId}}" method="GET">
-                <button class="btn btn-outline-success">Join</button>
-              </form>
-            </td>
-            {{/if}}
-          </tr>
-          {{/each}}
+            {{#each projects}}
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h5><a href="/project/{{this.project_id}}">{{this.projectName}}</a></h5>
+                </div>
+                {{#if this.isJoined}}
+                  <div class="col-3">
+                    <form action="/leave/{{this.project_id}}" method="GET">
+                      <button class="btn btn-outline-danger">LEAVE</button>
+                    </form>
+                  </div>
+                {{#if this.isOwner}}
+                  <div class="col-3">
+                    <form action="/project/{{_id}}" method="GET">
+                      <button class="btn btn-outline-primary">MANAGE</button>
+                    </form>
+                  </div>
+              </div>
+                {{/if}}
+                {{else}}
+                  <div class="col-3">
+                    <form action="/join/{{this.projectId}}" method="GET">
+                      <button class="btn btn-outline-success">JOIN</button>
+                    </form>
+                  </div>
+                {{/if}}   
+            {{/each}}
           {{else}}
-          {{#each projects}}
-          <tr>
-            <td class="align-middle">
-              <p>{{this.projectName}}</p>
-            </td>
-            <td class="align-middle text-center">
-              <form action="/auth/login" method="GET">
-                <button class="btn btn-outline-success">Join</button>
-              </form>
-            </td>
-          </tr>
-          {{/each}}
+            {{#each projects}}
+              <div class="row">
+                <div class="col-6">
+                  <a href="/project/{{this.project_id}}">{{this.projectName}}</a>
+                </div>
+                <div class="col-3">
+                  <form action="/auth/login" method="GET">
+                    <button class="btn btn-outline-success">JOIN</button>
+                  </form>
+                </div>
+              </div>
+            {{/each}}
           {{/if}}
-        </tbody>
-      </table>
-    </div>
-  </div>
-
 </div>
