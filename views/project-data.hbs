@@ -5,7 +5,7 @@
     </div>
     <div class="col-sm-7 mt-3">{{project.description}} </div>
     <div class="col-sm-2 mt-3">
-      <form action="/delete-project" method="POST">
+      <form action="/delete-project/{{project._id}}" method="POST">
         <button class="btn btn-outline-danger">DELETE</button>
       </form>
     </div>

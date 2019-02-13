@@ -97,6 +97,13 @@ router.post("/new-project", isConnected, (req,res,next) => {
     status: 'public',
   })
   newProject.save()
+    .then((project) => {
+      let newCard = new ProjectUser ({
+        _project: project.id,
+        _participant: req.user._id
+      })
+      newCard.save()
+    })
     .then(() => res.redirect("/profile"))
     .catch(err => next(err))
 })
@@ -133,4 +140,16 @@ router.get("/leave/:projectId", isConnected, (req,res,next) => {
     .catch(err => next(err))
   })
 
+router.post("/delete-project/:projectId", isConnected, (req,res,next) => {
+  let projectId = req.params.projectId
+  Promise.all([
+    Project.findOneAndDelete({"_id": projectId}),
+    ProjectUser.deleteMany({"_project": projectId}),
+    DataPoint.deleteMany({"_project": projectId})
+  ])
+    .then(results => {
+      let project = results[0]
+      res.render("project-deleted", {project})
+    })
+})
 module.exports = router;
