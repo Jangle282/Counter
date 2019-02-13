@@ -14,32 +14,27 @@
     <div id="map-all"></div>
   </div>
 
-<div class="row">
+<hr>
+
+  <div class="row">
     <div class="col mt-3">
-      <p>Participant Name</p>
-    </div>
-    <div class="col mt-3">
-      <p>Comments</p>      
-    </div>
-    <div class="col mt-3">
-      <p>When Collected</p>
+      <h4>Data Points for this Project</h4>
     </div>
   </div>
   {{#each dataPoints}}
   <div class="row">
-    <div class="col mt-3">
-      <p>{{this._user.firstName}} {{this._user.lastName}}</p>
+    <div class="col-sm-6 mt-3">
+      <h6><strong>{{this._user.firstName}} {{this._user.lastName}}</strong></h6>
+      <p>{{this.created_at}}</p>
+        <button class="btn btn-outline-danger">Delete</button>
+        <button class="btn btn-outline-primary">Contact</button>
     </div>
     <div class="col mt-3">
+      <strong>Comments</strong>
       <p>{{this.comment}}</p>
-    </div>
-    <div class="col mt-3">
-      <p>{{this.created_at}}</p>      
     </div>
   </div>
   {{/each}}
-
-      {{dataPoints.[0]}}
 
 </div>
 
