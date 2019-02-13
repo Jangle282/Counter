@@ -5,6 +5,7 @@ const User = require("../models/User")
 const ProjectUser = require("../models/ProjectUser")
 const DataPoint = require("../models/DataPoint")
 const {isConnected} = require("../configs/middlewares")
+var isEdited = false
 
 // routes for home page
 router.get('/', (req, res, next) => {
@@ -109,15 +110,28 @@ router.post("/new-project", isConnected, (req,res,next) => {
 })
 
 router.get("/project/:projectId", isConnected, (req,res,next) => {
+  console.log('got here 1: ', req.params.projectId)
+  console.log('in project page route', isEdited)
+
   Promise.all([
     Project.findOne({'_id': req.params.projectId}),
     DataPoint.find({'_project': req.params.projectId}).populate('_user')
   ])
     .then(results => {
+      console.log('got here2')
       let project = results[0]
       let dataPoints = results[1]
-      res.render("project-data", {project, dataPoints})
+      let isOwned = false
+      if (req.user._id.equals(project._owner)) isOwned = true
+      res.render("project-data", {project, dataPoints, isOwned, isEdited })
     })
+  })
+
+router.post('/edit-project/:projectId', (req,res,next) => {
+  isEdited = true
+  console.log('in edit route', isEdited)
+  var projectId = req.params.projectId
+  res.redirect(`/project/${projectId}`)
 })
 
 router.get("/join/:projectId", isConnected, (req,res,next) => {
@@ -141,8 +155,28 @@ router.get("/leave/:projectId", isConnected, (req,res,next) => {
     .catch(err => next(err))
   })
 
+router.post("/update-project/:projectId", isConnected, (req,res,next) => {
+  const projectId = req.params.projectId
+  let { projectName, description, } = req.body
+  isEdited = false
+  console.log('in update route', isEdited)
+
+  Project.findOneAndUpdate({ '_id': projectId },
+    {
+      $set: {
+        'projectName': projectName,
+        'description': description,
+      }
+    })
+  .then(() => {
+    res.redirect("/profile")
+  })
+  .catch(err => next(err))
+})
+
 router.post("/delete-project/:projectId", isConnected, (req,res,next) => {
   let projectId = req.params.projectId
+	console.log('TCL: projectId', projectId)
   Promise.all([
     Project.findOneAndDelete({"_id": projectId}),
     ProjectUser.deleteMany({"_project": projectId}),
