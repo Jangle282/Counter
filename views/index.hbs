@@ -37,25 +37,25 @@
                       <button class="btn btn-outline-danger">LEAVE</button>
                     </form>
                   </div>
+                {{/if}}
                 {{#if this.isOwner}}
                   <div class="col-3">
                     <form action="/project/{{this.project_id}}" method="GET">
                       <button class="btn btn-outline-primary">MANAGE</button>
                     </form>
                   </div>
-              </div>
-                {{/if}}
                 {{else}}
                   <div class="col-3">
                     <form action="/join/{{this.projectId}}" method="GET">
                       <button class="btn btn-outline-success">JOIN</button>
                     </form>
                   </div>
-                {{/if}}   
+                {{/if}} 
+              </div> 
             {{/each}}
           {{else}}
             {{#each projects}}
-              <div class="row">
+              <div class="row mb-2">
                 <div class="col-6">
                   <a href="/project/{{this.project_id}}">{{this.projectName}}</a>
                 </div>
