@@ -1,4 +1,41 @@
 <div class="container">
+  {{#if isEdited}}
+    <form action="/edit-profile" method="POST">
+    <div class="form-group row">
+      <label class="col-3 col-form-label" for="firstName">First Name</label>
+      <div class="col-9">
+        <input class="form-control" id="firstName" type="text" name="firstName" value="{{user.firstName}}"
+        required>
+      </div>
+      
+    </div>
+    <div class="form-group row">
+      <label class="col-3 col-form-label" for="lastName">Last Name</label>
+      <div class="col-9">
+        <input class="form-control" id="lastName" type="text" name="lastName" value="{{user.lastName}}"
+        required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="email" class="col-3 col-form-label">Email</label>
+      <div class="col-9">
+        <input class="form-control" id="email" type="email" name="email" value="{{user.email}}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-9" align="right">
+        <button class="btn btn-primary" action="/edit-profile" method="POST">
+          UPDATE
+        </button>
+      </div>
+      <div class="col-3" align="right">
+        <button class="btn btn-outline-danger" action="/profile" method="GET">
+          CANCEL
+        </button>
+      </div>
+    </div>
+  </form>
+  {{else}}
   <div class="container">
     <div class="row">
       <div class="col-sm-3">
@@ -8,7 +45,7 @@
           <h4>{{user.firstName}} {{user.lastName}}</h4>
           <br>
           <p>{{user.email}}</p>
-          <p>Role: {{user.role}}</p>
+          {{!-- <p>Role: {{user.role}}</p> --}}
       </div>
       <div class="col-sm-2">
         <form action="/edit-profile" method="GET">
@@ -19,6 +56,7 @@
       </div>
     </div>
   </div>
+  {{/if}}
   <br><hr><br>
   <div class="container">
     {{#if projectsIown}}
@@ -71,7 +109,6 @@
         </div>
         <br>
       {{/each}}
-    </div>
     {{/if}}
   </div>
 </div>
