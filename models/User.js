@@ -15,7 +15,6 @@ const userSchema = new Schema({
     enum: ["Pending Confirmation", "Active"],
     default: "Pending Confirmation"
   },
-  role: {type: String, enum: ['participant', 'researcher', 'admin'], default: 'participant'},
   profilePicPath: {
     type: String,
     default: ""

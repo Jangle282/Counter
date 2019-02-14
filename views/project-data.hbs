@@ -12,7 +12,6 @@
         </div>
         <div class="col-sm-2 mb-2">
           <button class="btn btn-outline-primary">UPDATE</button>
-          {{!-- <a class="btn btn-outline-danger" href="">DELETE</a> --}}
         </div>
       </div>
     </form>
@@ -136,26 +135,6 @@
             center: center
           }
         );
-        //add a marker with the current position to the map
-        const currentPositionMarker = new google.maps.Marker({
-          position: {
-            lat: center.lat,
-            lng: center.lng
-          },
-          map: map,
-          icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-          }
-        });
-        //making the current position marker clickable and displaying "You are here" on click
-        const infowindow = new google.maps.InfoWindow({
-          content: `You are here`
-        });
-        currentPositionMarker.addListener('click', function() {
-            if (lastWindow) lastWindow.close();
-            infowindow.open(map, currentPositionMarker);
-            lastWindow = infowindow;
-          })
         //get the datapoints
         const markers = [];
         const infoWindows = [];
@@ -180,7 +159,8 @@
               });
               markers.push(pin);
               const infowindow = new google.maps.InfoWindow({
-                content: `${datapoint._user.firstName} ${datapoint._user.lastName}
+                content: `Collected by: <br> 
+                            ${datapoint._user.firstName} ${datapoint._user.lastName} <br>
                             <a href="" class="btn"><i class="fas fa-trash"></i></a>
                             <a href="" class="btn"><i class="fas fa-envelope"></i></>`
               });

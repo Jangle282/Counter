@@ -10,7 +10,6 @@ let users = [
     lastName: 'Satterfield',
     email: "Dawn.Satterfield@leonard.biz", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
-    role:  'researcher',
     profilePicPath: "",
     status: 'Active',
     confirmationCode: createConfirmationCode()
@@ -20,7 +19,6 @@ let users = [
     lastName: 'Doyle',
     email: "Kiarra.Doyle@darwin.net", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
-    role:  'researcher',
     profilePicPath: "",
     status: 'Active',
     confirmationCode: createConfirmationCode()
@@ -30,7 +28,6 @@ let users = [
     lastName: 'Doyle',
     email: "Kiarra.Doyle@darwin.net", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
-    role:  'participant',
     profilePicPath: "",
     status: 'Active',
     confirmationCode: createConfirmationCode()
@@ -41,7 +38,6 @@ let users = [
     lastName: 'Connelly',
     email: "orangerabbit21@gmail.com", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
-    role:  'participant',
     profilePicPath: "",
     status: 'Active',
     confirmationCode: createConfirmationCode()
@@ -52,7 +48,6 @@ let users = [
     lastName: 'Walker',
     email: "limefrog58@gmail.com", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
-    role:  'participant',
     profilePicPath: "",
     status: 'Active',
     confirmationCode: createConfirmationCode()
@@ -63,7 +58,6 @@ let users = [
     lastName: 'Erdman',
     email: "Yasmin.Erdman@belle.net", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
-    role:  'participant',
     profilePicPath: "",
     status: 'Active',
     confirmationCode: createConfirmationCode()
@@ -74,7 +68,6 @@ let users = [
     lastName: 'Erdman',
     email: "ivorygiraffe32@gmail.com", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
-    role:  'participant',
     profilePicPath: "",
     status: 'Active',
     confirmationCode: createConfirmationCode()
@@ -85,7 +78,6 @@ let users = [
     lastName: "D'Amore",
     email: "Mossie.D'Amore@sedrick.net", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
-    role:  'participant',
     profilePicPath: "",
     status: 'Active',
     confirmationCode: createConfirmationCode()
@@ -96,7 +88,6 @@ let users = [
     lastName: 'Barkus',
     email: "lavendergiraffe60@gmail.com", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
-    role:  'admin',
     profilePicPath: "",
     status: 'Active',
     confirmationCode: createConfirmationCode()
