@@ -53,6 +53,8 @@ router.get('/data-capture', isConnected, (req, res, next) => {
 });
 //create new datapoint
 router.post('/submit-data', isConnected, (req, res, next) => {
+  var projectId = req.body.projectId
+	console.log('TCL: hamster', req.body)
   Project.findById(req.body.projectId)
     .then(project => {
       let newData = new DataPoint({
@@ -63,7 +65,7 @@ router.post('/submit-data', isConnected, (req, res, next) => {
       })
       return newData.save()
     })
-    .then(() => res.redirect("/data-capture"))
+    .then(() => res.redirect(`/project/${projectId}`))
     .catch(err => next(err))
 })
 //delete a datapoint
@@ -137,7 +139,7 @@ router.post("/new-project", isConnected, (req,res,next) => {
 router.get("/project/:projectId", isConnected, (req,res,next) => {
   Promise.all([
     Project.findOne({'_id': req.params.projectId}),
-    DataPoint.find({'_project': req.params.projectId}).populate('_user'),
+    DataPoint.find({'_project': req.params.projectId}).populate('_user').sort({ created_at : -1 }),
     ProjectUser.find({'_project': req.params.projectId}).populate('_user')
   ])
     .then(results => {

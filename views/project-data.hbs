@@ -1,4 +1,5 @@
 <div class="container">
+
   {{#if isOwned}}
       {{#if isEdited}}
       <div class="row">
@@ -53,6 +54,9 @@
       <h5>All Datapoints</h5> 
     </div>
   </div>
+  {{#unless dataPoints}}
+  <p>There are no data points for this project yet</p>
+  {{/unless}}
   {{#each dataPoints}}
   <div class="row">
     <div class="col-sm-6 mt-3">
@@ -61,7 +65,7 @@
       <form action="/delete-datapoint/{{this._id}}" method="post" style="display:inline-block">
         <button class="btn btn-outline-danger mb-1">Delete</button>
       </form>
-      <a href="mailto:{{this._user.email}}?subject=Your observation for the project {{../project.projectName}}" class="btn btn-outline-primary mb-1">Contact</a>
+      <a href="mailto:`{{this._user.email}}?subject=Your observation for the project {{../project.projectName}}"` class="btn btn-outline-primary mb-1">Contact</a>
     </div>
     <div class="col mt-3">
       <strong>Comments</strong>
@@ -113,7 +117,7 @@
       <h5>All Datapoints</h5> 
     </div>
   </div>
-  {{#each dataPoints}}
+ {{#each dataPoints}}
   <div class="row">
     <div class="col-sm-6 mt-3">
       <h6><strong>{{this._user.firstName}} {{this._user.lastName}}</strong></h6>

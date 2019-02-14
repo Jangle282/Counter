@@ -4,6 +4,18 @@
 
   <form action="/auth/signup" method="POST">
     <div class="form-group row">
+      <label class="col-3 col-form-label" for="firstName">First Name</label>
+      <input class="col-9 form-control" id="firstName" type="text" name="firstName" placeholder="Jon" required>
+    </div>
+    <div class="form-group row">
+      <label class="col-3 col-form-label" for="lastName">Last Name</label>
+      <input class="col-9 form-control" id="lastName" type="text" name="lastName" placeholder="Snow" required>
+    </div>
+    <div class="form-group row">
+      <label for="email" class="col-3 col-form-label">Email</label>
+      <input class="col-9 form-control" id="email" type="email" name="email" placeholder="Your email">
+    </div>
+    <div class="form-group row">
       <label class="col-3 col-form-label" for="project">Project</label>
       <select multiple class="col-9 form-control" id="project" name="project">
         <option value="">--Join a project--</option>
@@ -11,18 +23,6 @@
         <option value="{{this.projectName}}">{{this.projectName}}</option>
         {{/each}}
       </select>
-    </div>
-    <div class="form-group row">
-      <label for="email" class="col-3 col-form-label">Email</label>
-      <input class="col-9 form-control" id="email" type="email" name="email" placeholder="Your email">
-    </div>
-    <div class="form-group row">
-      <label class="col-3 col-form-label" for="firstName">First Name</label>
-      <input class="col-9 form-control" id="firstName" type="text" name="firstName" placeholder="Jon" required>
-    </div>
-    <div class="form-group row">
-      <label class="col-3 col-form-label" for="lastName">Last Name</label>
-      <input class="col-9 form-control" id="lastName" type="text" name="lastName" placeholder="Snow" required>
     </div>
     <div class="form-group row">
       <label for="inputPassword" class="col-3 col-form-label">Password</label>

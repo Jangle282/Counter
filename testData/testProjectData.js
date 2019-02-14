@@ -4,14 +4,14 @@ const Project = require('../models/Project')
 
 let projects = [
   new Project ({
-    projectName: 'Rabbits',
-    description: "There's a new mystery disease killing all the rabbits, we need data on where they are dying to map the spread of the disease",
+    projectName: 'Myxomatosis in wild rabbit population',
+    description: "This disease is spreading rapidly and killing all the rabbits, we need data on where the infected animals are to map the spread of the disease",
     _owner: users[0]._id,
     status: 'public',
   }),
   new Project ({
-    projectName: 'Dogs',
-    description: "The WeWork building at Potsdamer platz has been overrun by alien creatures masquerading as cute small dogs,",
+    projectName: 'Are they really Dogs?',
+    description: "The WeWork building at Potsdamer Platz has been overrun by alien creatures masquerading as cute small dogs,",
     _owner: users[0]._id,
     status: 'public',
   }),
