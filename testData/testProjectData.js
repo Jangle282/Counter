@@ -16,7 +16,7 @@ let projects = [
     status: 'public',
   }),
   new Project ({
-    projectName: 'Rough sleepers',
+    projectName: 'Rough sleeping',
     description: "We don't think the authorities are counting the correct number of people rough sleeping on the street in Berlin and want to collect our own data",
     _owner: users[1]._id,
     status: 'public',
