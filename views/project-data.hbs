@@ -58,7 +58,7 @@
     <div class="col-sm-6 mt-3">
       <h6><strong>{{this._user.firstName}} {{this._user.lastName}}</strong></h6>
       <p>{{this.created_at}}</p>
-      <form action="/delete-datapoint/{{this._project}}/{{this._id}}" method="post" style="display:inline-block">
+      <form action="/delete-datapoint/{{this._id}}" method="post" style="display:inline-block">
         <button class="btn btn-outline-danger mb-1">Delete</button>
       </form>
       <a href="mailto:{{this._user.email}}?subject=Your observation for the project {{../project.projectName}}" class="btn btn-outline-primary mb-1">Contact</a>
@@ -183,7 +183,7 @@
                   content: `Collected by: 
                               <strong>${datapoint._user.firstName} ${datapoint._user.lastName}</strong> 
                               <a href="mailto:${datapoint._user.email}?subject=Your observation for the project {{project.projectName}}" class="btn"><i class="fas fa-envelope"></i></a>
-                              <form action="/delete-datapoint/${datapoint._project}/${datapoint._id}" method="post" style="display:inline-block">
+                              <form action="/delete-datapoint/${datapoint._id}" method="post" style="display:inline-block">
                                 <button class="btn"><i class="fas fa-trash"></i></button>
                               </form>`
                 });
