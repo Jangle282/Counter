@@ -51,8 +51,25 @@ router.get('/data-capture', isConnected, (req, res, next) => {
     .catch(err => next(err))
 });
 
+router.post('/submit-data', isConnected, (req, res, next) => {
+  console.log(req.body)
+  Project.find({'projectName': req.body.projectName})
+    .then(project => {
+      let newData = new DataPoint({
+        _project: project[0]._id,
+        _user: req.user._id,
+        comment: req.body.comment,
+        location: { type: 'Point', coordinates: [req.body.lat, req.body.lng]}
+      })
+      newData.save()
+    })
+    .then(res.redirect("/data-capture"))
+    .catch(err => next(err))
+})
+
 // ------USER PROFILE-----
 // render profile page with user information 
+// routes for user profile
 router.get("/profile", isConnected, (req,res,next) => {
   Promise.all([
     Project.find({'_owner': req.user._id}),
@@ -155,7 +172,6 @@ router.get("/leave/:projectId", isConnected, (req,res,next) => {
 router.post("/update-project/:projectId", isConnected, (req,res,next) => {
   const projectId = req.params.projectId
   let { projectName, description, } = req.body
-
   Project.findOneAndUpdate({ '_id': projectId },
     {
       $set: {
