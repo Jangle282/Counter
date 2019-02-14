@@ -137,7 +137,8 @@ router.get("/project/:projectId", isConnected, (req,res,next) => {
       let dataPoints = results[1]
       let isOwned = false
       if (req.user._id.equals(project._owner)) isOwned = true
-      res.render("project-data", {project, dataPoints, isOwned, isEdited })
+      let userId = req.user._id
+      res.render("project-data", {project, dataPoints, isOwned, isEdited, userId})
       isEdited = false
     })
   })
