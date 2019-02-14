@@ -6,6 +6,7 @@ const ProjectUser = require('../models/ProjectUser')
 const {transporter, createConfirmationCode} = require("../configs/emailTransporter");
 const emailTemplate = require("../configs/confirmationEmail").template;
 const {isConnected, isNotConnected} = require("../configs/middlewares")
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const router = express.Router();
 
@@ -23,6 +24,42 @@ router.post("/login", passport.authenticate("local", {
   failureFlash: true,
   passReqToCallback: true
 }));
+
+//-----GOOGLE CRAP----
+passport.use(new GoogleStrategy({
+  clientID: process.env.clientId,
+  clientSecret: process.env.clientSecret,
+  callbackURL: "http://localhost:3000/auth/google/callback"
+},
+function(accessToken, refreshToken, profile, done) {
+  console.log("I am in the strategy", accessToken, refreshToken, profile)
+  // look if that user exists
+  // if user exists, redirect to main page
+  // otherwise, create a new user
+  // then redirect to main page
+
+  //J need to find a way to get the email address of the user. Perhaps need to verify th domain like Naaman. 
+  User.findOne({ email: "Kiarra.Doyle@darwin.net" }, (err, user) => {
+    console.log("User", user)
+    return done(null, user);
+  })
+  
+  //User.findOrCreate({ googleId: profile.id }, function (err, user) {
+  //  return done(err, user);
+  //});
+}
+));
+
+router.get('/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }
+  ));
+
+router.get('/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/auth/login' }),
+  function(req, res) {
+    console.log("In google callback")
+    res.redirect('/');
+  });
 
 router.get("/signup", isNotConnected, (req, res, next) => {
   Project.find()
@@ -75,7 +112,7 @@ router.post("/signup", (req, res, next) => {
       Project.find({ projectName: projects[i]})
       .then((projects) => {
         const newProjectUser = new ProjectUser ({
-          _project: projects[0]._id, // there's a but here somehow when only one project is selected... 
+          _project: projects[0]._id,
           _participant: participantId,
           })
           newProjectUser.save() 

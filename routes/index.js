@@ -72,6 +72,8 @@ router.post('/delete-datapoint/:projectId/:datapointId', isConnected, (req, res,
     .then(res.redirect(`/project/${req.params.projectId}`))
 })
 
+// ------USER PROFILE-----
+// render profile page with user information 
 // routes for user profile
 router.get("/profile", isConnected, (req,res,next) => {
   Promise.all([
@@ -83,17 +85,16 @@ router.get("/profile", isConnected, (req,res,next) => {
       let user = req.user
       let projectsIown = result[0]
       let projectsIparticipateIn = result[1]
-			res.render('profile', {user, projectsIown, projectsIparticipateIn})
+      res.render('profile', {user, projectsIown, projectsIparticipateIn, isEdited})
+      isEdited = false
     })
 })
-
+// user clicked edit button - re-render profile page with isEdited=true
 router.get("/edit-profile", isConnected, (req, res, next) => {
-  let user = req.user
-  let isParticipant = true
-  if (req.user.role === "researcher") isParticipant = false;
-  res.render("edit-profile", { user, isParticipant })
+  isEdited = true,
+  res.redirect('/profile')
 })
-
+// updates edited profile information in the database
 router.post("/edit-profile", isConnected, (req, res, next) => {
   let userId = req.user._id
   let { firstName, lastName, email, role } = req.body
@@ -110,7 +111,8 @@ router.post("/edit-profile", isConnected, (req, res, next) => {
     .catch(err => next(err))
 })
 
-// routes for CRUD on projects & project-data page
+// -----PROJECTS-----
+// create a new project
 router.post("/new-project", isConnected, (req,res,next) => {
   let newProject = new Project ({
     projectName: req.body.projectName,
@@ -129,7 +131,7 @@ router.post("/new-project", isConnected, (req,res,next) => {
     .then(() => res.redirect("/profile"))
     .catch(err => next(err))
 })
-
+// renders the project-data page showing the users project information 
 router.get("/project/:projectId", isConnected, (req,res,next) => {
   Promise.all([
     Project.findOne({'_id': req.params.projectId}),
@@ -142,15 +144,16 @@ router.get("/project/:projectId", isConnected, (req,res,next) => {
       if (req.user._id.equals(project._owner)) isOwned = true
       let userId = req.user._id
       res.render("project-data", {project, dataPoints, isOwned, isEdited, userId})
+      isEdited = false
     })
   })
-
+// user clicked edit project button - takes project id, sets isEdited to true and re-renders project-data page
 router.post('/edit-project/:projectId', (req,res,next) => {
   isEdited = true
   var projectId = req.params.projectId
   res.redirect(`/project/${projectId}`)
 })
-
+// user "joins" project - creates a new ProjectUser document object
 router.get("/join/:projectId", isConnected, (req,res,next) => {
   let newProjectUser = new ProjectUser ({
     _project: req.params.projectId,
@@ -162,7 +165,7 @@ router.get("/join/:projectId", isConnected, (req,res,next) => {
   })
   .catch(err => next(err))
 })
-
+// user "leaves" project - deletes ProjectUser document object
 router.get("/leave/:projectId", isConnected, (req,res,next) => {
   let id = req.params.projectId  
   ProjectUser.findOneAndDelete({ $and: [{_participant: req.user._id},{_project: id}]})
@@ -171,11 +174,10 @@ router.get("/leave/:projectId", isConnected, (req,res,next) => {
     })
     .catch(err => next(err))
   })
-
+// updates edited project information in the database
 router.post("/update-project/:projectId", isConnected, (req,res,next) => {
   const projectId = req.params.projectId
   let { projectName, description, } = req.body
-  isEdited = false
   Project.findOneAndUpdate({ '_id': projectId },
     {
       $set: {
@@ -188,7 +190,7 @@ router.post("/update-project/:projectId", isConnected, (req,res,next) => {
   })
   .catch(err => next(err))
 })
-
+// delete a project 
 router.post("/delete-project/:projectId", isConnected, (req,res,next) => {
   let projectId = req.params.projectId
   Promise.all([
