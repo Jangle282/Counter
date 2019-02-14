@@ -6,13 +6,13 @@
       <div class="form-group row">
         <div class="col-sm-3 mb-2">
           <textarea maxlength="100" class="form-control" name="projectName" id="projectName" cols="15" rows="1">{{project.projectName}}</textarea>
-          {{!-- <input class="form-control" required type="text" placeholder="{{project.projectName}}" name="projectName"></input>         --}}
         </div>
-        <div class="col-sm-7 mb-2">
+        <div class="col-sm-5 mb-2">
           <textarea maxlength="500" class="form-control" name="description" id="description" cols="30" rows="1">{{project.description}}</textarea>
         </div>
-        <div class="col-sm-2 mb-2">
+        <div class="col-sm-4 mb-2">
           <button class="btn btn-outline-primary">UPDATE</button>
+          <a href="/project/{{project._id}}" class="btn btn-outline-danger">CANCEL</a></h5>
         </div>
       </div>
     </form>
