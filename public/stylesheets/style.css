@@ -7034,4 +7034,13 @@ body {
 .navbar {
   background-color: white; }
 
+div {
+  border-radius: 10px; }
+
+.contentbox {
+  background-color: white; }
+
+.col-form-label {
+  font-size: 20px; }
+
 /*# sourceMappingURL=style.css.map */
