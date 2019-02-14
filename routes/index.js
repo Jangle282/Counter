@@ -36,7 +36,8 @@ router.get('/', (req, res, next) => {
   }
 });
 
-// routes for data capture
+//routes for CRUD on datapoints
+//data capture page
 router.get('/data-capture', isConnected, (req, res, next) => {
   //finding all the projects which user participates in
   ProjectUser.find({ '_participant': req.user._id })
@@ -50,21 +51,27 @@ router.get('/data-capture', isConnected, (req, res, next) => {
     })
     .catch(err => next(err))
 });
-
+//create new datapoint
 router.post('/submit-data', isConnected, (req, res, next) => {
-  console.log(req.body)
-  Project.find({'projectName': req.body.projectName})
+  Project.findById(req.body.projectId)
     .then(project => {
       let newData = new DataPoint({
-        _project: project[0]._id,
+        _project: project._id,
         _user: req.user._id,
         comment: req.body.comment,
         location: { type: 'Point', coordinates: [req.body.lat, req.body.lng]}
       })
-      newData.save()
+      return newData.save()
     })
-    .then(res.redirect("/data-capture"))
+    .then(() => res.redirect("/data-capture"))
     .catch(err => next(err))
+})
+//delete a datapoint
+router.post('/delete-datapoint/:datapointId', isConnected, (req, res, next)  => {
+  DataPoint.findByIdAndDelete(req.params.datapointId)
+    .then(dataPointDeleted => {
+      res.redirect(`/project/${dataPointDeleted._project}`)
+    })
 })
 
 // ------USER PROFILE-----

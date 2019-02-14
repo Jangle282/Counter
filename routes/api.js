@@ -8,7 +8,7 @@ const {isConnected} = require("../configs/middlewares")
 
 router.get('/data-points/:projectId', (req, res, next) => {
   DataPoint.find({'_project': req.params.projectId})
-    .populate('_user')
+    .populate('_user', 'firstName lastName email')
     .then((dataPoints) => {
       res.json(dataPoints);
     })
