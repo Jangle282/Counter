@@ -1,15 +1,15 @@
 <div class="container">
   {{#if message }}
-  <h2>{{ message }}</h2>
+  <h2 style="color:white">{{ message }}</h2>
   <br>
-  <h3>Visit our <a href="/">homepage</a> to find one 🔍</h3>
+  <h3 style="color:white">Visit our <a href="/">homepage</a> to find one 🔍</h3>
   {{else}}
-  <h2>Send your location</h2>
+  <h2 style="color:white">Send your location</h2>
   <div id="map"></div>
   <br>
   <form action="/submit-data/" method="POST">
     <div class="form-group row">
-      <label class="col-3 col-form-label" for="projectNamet">Project</label>
+      <label style="color:white" class="col-3 col-form-label" for="projectNamet">Project</label>
       <div class="col-9">
         <select class="form-control" name="projectId">
           {{#each projects}}
@@ -20,9 +20,9 @@
 
     </div>
     <div class="form-group row">
-      <label class="col-3 col-form-label" for="comment">Comment</label>
+      <label style="color:white" class="col-3 col-form-label" for="comment">Comment</label>
       <div class="col-9">
-        <input class="form-control" type="text" name="comment" placeholder="Place your comment here... "></input>
+        <input  class="form-control" type="text" name="comment" placeholder="Place your comment here... "></input>
       </div>
     </div>
     <br>

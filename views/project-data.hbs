@@ -71,19 +71,24 @@
   {{/each}}
 
   {{else}}
-  <div class="row">
+  <div class="row pb-3 contentbox" style="background-color: white">
     <div class="col-sm-3 mt-3">
       <h3 class="mb-0">{{project.projectName}}</h3>
     </div>
-    <div class="col-sm-7 mt-3">{{project.description}} 
-    </div>
       {{#if isJoined}}
-      <div class="col-sm-2 mt-3">
-          <form action="/leave/{{project._id}}/project" method="get">
-            <button class="btn btn-outline-danger">LEAVE</button>
+      <div class="col-sm-5 mt-3">{{project.description}} </div>
+      <div class="col-sm-2 mt-3 p-0">
+          <form action="/capture-data" method="get">
+            <button class="btn btn-outline-success btn-sm">ADD DATA</button>
           </form>
-        </div>
+      </div>
+      <div class="col-sm-2 mt-3 pl-1">
+          <form action="/leave/{{project._id}}/project" method="get">
+            <button class="btn btn-outline-danger btn-sm">LEAVE PROJECT</button>
+          </form>
+      </div>
       {{else}}
+      <div class="col-sm-7 mt-3">{{project.description}} </div>
       <div class="col-sm-2 mt-3">
           <form action="/join/{{project._id}}/project" method="get">
             <button class="btn btn-outline-success">JOIN</button>
@@ -94,8 +99,10 @@
   <div class="row">
     <div id="map-all"></div>
   </div>
+ <div class="row contentbox">
+<div class="container">
 
-  <div class="row">
+  <div class="row mt-3">
     <div class="col">
       <h5>Total count: {{dataPoints.length}}</h5> 
     </div>
@@ -118,6 +125,8 @@
     </div>
   </div>
   {{/each}}
+</div>
+ </div>
 {{/if}}
 </div>
 
