@@ -36,7 +36,7 @@ router.get('/', (req, res, next) => {
   }
 });
 
-//routes for CRUD on datapoints
+//------DATAPOINTS-------
 //data capture page
 router.get('/data-capture', isConnected, (req, res, next) => {
   //finding all the projects which user participates in
@@ -44,7 +44,7 @@ router.get('/data-capture', isConnected, (req, res, next) => {
     .populate('_project')
     .then(projects => {
       if (projects.length === 0) {
-        res.render('data-capture', { message: "Sorry, you have to join a project before you can capture data!" })
+        res.render('data-capture', { message: "Join a project and start collecting data!" })
       } else {
         res.render('data-capture', { projects });
       }
@@ -137,15 +137,21 @@ router.post("/new-project", isConnected, (req,res,next) => {
 router.get("/project/:projectId", isConnected, (req,res,next) => {
   Promise.all([
     Project.findOne({'_id': req.params.projectId}),
-    DataPoint.find({'_project': req.params.projectId}).populate('_user')
+    DataPoint.find({'_project': req.params.projectId}).populate('_user'),
+    ProjectUser.find({'_project': req.params.projectId}).populate('_user')
   ])
     .then(results => {
       let project = results[0]
       let dataPoints = results[1]
+      let projectUsers = results[2]
       let isOwned = false
       if (req.user._id.equals(project._owner)) isOwned = true
+      let isJoined = false
+      if(projectUsers.some(card => {
+        return card._participant.equals(req.user._id)
+      })) isJoined = true
       let userId = req.user._id
-      res.render("project-data", {project, dataPoints, isOwned, isEdited, userId})
+      res.render("project-data", {project, dataPoints, isOwned, isEdited, isJoined, userId})
       isEdited = false
     })
   })
@@ -156,14 +162,15 @@ router.post('/edit-project/:projectId', (req,res,next) => {
   res.redirect(`/project/${projectId}`)
 })
 // user "joins" project - creates a new ProjectUser document object
-router.get("/join/:projectId", isConnected, (req,res,next) => {
+router.get("/join/:projectId/:page", isConnected, (req,res,next) => {
   let newProjectUser = new ProjectUser ({
     _project: req.params.projectId,
     _participant: req.user._id
   })
   newProjectUser.save()
   .then(() => {
-    res.redirect("/")
+    if (req.params.page === "home") {res.redirect("/")}
+    if (req.params.page === "project") {res.redirect(`/project/${req.params.projectId}`)}
   })
   .catch(err => next(err))
 })

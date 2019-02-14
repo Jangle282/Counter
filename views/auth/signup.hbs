@@ -4,13 +4,6 @@
 
   <form action="/auth/signup" method="POST">
     <div class="form-group row">
-      <label class="col-3 col-form-label" for="role">Role</label>
-      <select class="col-9 form-control" id="role" name="role">
-        <option value="participant">Participant</option>
-        <option value="researcher">Researcher</option>
-      </select>
-    </div>
-    <div class="form-group row">
       <label class="col-3 col-form-label" for="project">Project</label>
       <select multiple class="col-9 form-control" id="project" name="project">
         <option value="">--Join a project--</option>
@@ -20,16 +13,16 @@
       </select>
     </div>
     <div class="form-group row">
+      <label for="email" class="col-3 col-form-label">Email</label>
+      <input class="col-9 form-control" id="email" type="email" name="email" placeholder="Your email">
+    </div>
+    <div class="form-group row">
       <label class="col-3 col-form-label" for="firstName">First Name</label>
       <input class="col-9 form-control" id="firstName" type="text" name="firstName" placeholder="Jon" required>
     </div>
     <div class="form-group row">
       <label class="col-3 col-form-label" for="lastName">Last Name</label>
       <input class="col-9 form-control" id="lastName" type="text" name="lastName" placeholder="Snow" required>
-    </div>
-    <div class="form-group row">
-      <label for="email" class="col-3 col-form-label">Email</label>
-      <input class="col-9 form-control" id="email" type="email" name="email" placeholder="Your email">
     </div>
     <div class="form-group row">
       <label for="inputPassword" class="col-3 col-form-label">Password</label>
@@ -43,8 +36,8 @@
     <button class="btn btn-primary">Sign up</button>
     <br><br>
     <p class="account-message">
-      Don't have an account yet?
-      <a href="/auth/signup">Signup!</a>
+      Already got an account?
+      <a href="/auth/login">Login</a>
     </p>
 </div>
 </form>

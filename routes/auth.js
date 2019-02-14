@@ -132,7 +132,10 @@ router.get("/confirm/:confirmCode", (req, res, next) => {
     {status: "Active"}
     )
     .then(user => {
-      res.redirect("/")
+      req.login(user, function(err) {
+        if (err) { return next(err); }
+        return res.redirect('/data-capture');
+      })
     })
     .catch(err => 
       res.render("activation-error"))

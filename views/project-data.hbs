@@ -1,36 +1,36 @@
 <div class="container">
   {{#if isOwned}}
-  {{#if isEdited}}
-  <div class="row">
-    <form action="/update-project/{{project._id}}" method="POST">
-      <div class="form-group row">
-        <div class="col-sm-3 mb-2">
-          <textarea maxlength="100" class="form-control" name="projectName" id="projectName" cols="15" rows="1">{{project.projectName}}</textarea>
+      {{#if isEdited}}
+      <div class="row">
+        <form action="/update-project/{{project._id}}" method="POST">
+          <div class="form-group row">
+            <div class="col-sm-3 mb-2">
+              <textarea maxlength="100" class="form-control" name="projectName" id="projectName" cols="15" rows="1">{{project.projectName}}</textarea>
+            </div>
+            <div class="col-sm-5 mb-2">
+              <textarea maxlength="500" class="form-control" name="description" id="description" cols="30" rows="1">{{project.description}}</textarea>
+            </div>
+            <div class="col-sm-4 mb-2">
+              <button class="btn btn-outline-primary">UPDATE</button>
+              <a href="/project/{{project._id}}" class="btn btn-outline-danger">CANCEL</a></h5>
+            </div>
+          </div>
+        </form>
+      </div>
+      {{else}}
+      <div class="row">
+        <div class="col-sm-3 mt-3">
+          <h3 class="mb-0">{{project.projectName}}</h3>
         </div>
-        <div class="col-sm-5 mb-2">
-          <textarea maxlength="500" class="form-control" name="description" id="description" cols="30" rows="1">{{project.description}}</textarea>
-        </div>
-        <div class="col-sm-4 mb-2">
-          <button class="btn btn-outline-primary">UPDATE</button>
-          <a href="/project/{{project._id}}" class="btn btn-outline-danger">CANCEL</a></h5>
+        <div class="col-sm-7 mt-3">{{project.description}} </div>
+        <div class="col-sm-2 mt-3">
+          <form action="/edit-project/{{project._id}}" method="POST">
+            <button class="btn btn-outline-primary">EDIT</button>
+          </form>
         </div>
       </div>
-    </form>
-  </div>
-  {{else}}
-  <div class="row">
-    <div class="col-sm-3 mt-3">
-      <h3 class="mb-0">{{project.projectName}}</h3>
-    </div>
-    <div class="col-sm-7 mt-3">{{project.description}} </div>
-    <div class="col-sm-2 mt-3">
-      <form action="/edit-project/{{project._id}}" method="POST">
-        <button class="btn btn-outline-primary">EDIT</button>
-      </form>
-    </div>
-  </div>
 
-  {{/if}}
+      {{/if}}
   <div class="row">
     <div id="map-all"></div>
   </div>
@@ -75,7 +75,21 @@
     <div class="col-sm-3 mt-3">
       <h3 class="mb-0">{{project.projectName}}</h3>
     </div>
-    <div class="col-sm-9 mt-3">{{project.description}} </div>
+    <div class="col-sm-7 mt-3">{{project.description}} 
+    </div>
+      {{#if isJoined}}
+      <div class="col-sm-2 mt-3">
+          <form action="/leave/{{project._id}}/project" method="get">
+            <button class="btn btn-outline-danger">LEAVE</button>
+          </form>
+        </div>
+      {{else}}
+      <div class="col-sm-2 mt-3">
+          <form action="/join/{{project._id}}/project" method="get">
+            <button class="btn btn-outline-success">JOIN</button>
+          </form>
+        </div>
+      {{/if}}
   </div>
   <div class="row">
     <div id="map-all"></div>
