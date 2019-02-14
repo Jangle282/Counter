@@ -50,6 +50,22 @@ router.get('/data-capture', isConnected, (req, res, next) => {
     .catch(err => next(err))
 });
 
+router.post('/submit-data', isConnected, (req, res, next) => {
+  console.log(req.body)
+  Project.find({'projectName': req.body.projectName})
+    .then(project => {
+      let newData = new DataPoint({
+        _project: project[0]._id,
+        _user: req.user._id,
+        comment: req.body.comment,
+        location: { type: 'Point', coordinates: [req.body.lat, req.body.lng]}
+      })
+      newData.save()
+    })
+    .then(res.redirect("/data-capture"))
+    .catch(err => next(err))
+})
+
 // routes for user profile
 router.get("/profile", isConnected, (req,res,next) => {
   Promise.all([
