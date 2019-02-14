@@ -37,17 +37,17 @@
                       <button class="btn btn-outline-danger">LEAVE</button>
                     </form>
                   </div>
+                  {{else}}
+                  <div class="col-3">
+                    <form action="/join/{{this.project_id}}" method="GET">
+                      <button class="btn btn-outline-success">JOIN</button>
+                    </form>
+                  </div>
                 {{/if}}
                 {{#if this.isOwner}}
                   <div class="col-3">
                     <form action="/project/{{this.project_id}}" method="GET">
                       <button class="btn btn-outline-primary">MANAGE</button>
-                    </form>
-                  </div>
-                {{else}}
-                  <div class="col-3">
-                    <form action="/join/{{this.project_id}}" method="GET">
-                      <button class="btn btn-outline-success">JOIN</button>
                     </form>
                   </div>
                 {{/if}} 

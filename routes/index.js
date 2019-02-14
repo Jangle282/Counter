@@ -204,7 +204,4 @@ router.post("/delete-project/:projectId", isConnected, (req,res,next) => {
     })
 })
 
-
-
-// routes for DataPoints
 module.exports = router;
