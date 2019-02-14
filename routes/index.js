@@ -36,7 +36,8 @@ router.get('/', (req, res, next) => {
   }
 });
 
-// routes for data capture
+//routes for CRUD on datapoints
+//data capture page
 router.get('/data-capture', isConnected, (req, res, next) => {
   //finding all the projects which user participates in
   ProjectUser.find({ '_participant': req.user._id })
@@ -50,9 +51,8 @@ router.get('/data-capture', isConnected, (req, res, next) => {
     })
     .catch(err => next(err))
 });
-
+//create new datapoint
 router.post('/submit-data', isConnected, (req, res, next) => {
-  console.log(req.body)
   Project.find({'projectName': req.body.projectName})
     .then(project => {
       let newData = new DataPoint({
@@ -65,6 +65,11 @@ router.post('/submit-data', isConnected, (req, res, next) => {
     })
     .then(res.redirect("/data-capture"))
     .catch(err => next(err))
+})
+//delete a datapoint
+router.post('/delete-datapoint/:projectId/:datapointId', isConnected, (req, res, next)  => {
+  DataPoint.findByIdAndDelete(req.params.datapointId)
+    .then(res.redirect(`/project/${req.params.projectId}`))
 })
 
 // routes for user profile
@@ -186,7 +191,6 @@ router.post("/update-project/:projectId", isConnected, (req,res,next) => {
 
 router.post("/delete-project/:projectId", isConnected, (req,res,next) => {
   let projectId = req.params.projectId
-	console.log('TCL: projectId', projectId)
   Promise.all([
     Project.findOneAndDelete({"_id": projectId}),
     ProjectUser.deleteMany({"_project": projectId}),

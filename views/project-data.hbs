@@ -57,8 +57,10 @@
     <div class="col-sm-6 mt-3">
       <h6><strong>{{this._user.firstName}} {{this._user.lastName}}</strong></h6>
       <p>{{this.created_at}}</p>
-        <button class="btn btn-outline-danger">Delete</button>
-        <button class="btn btn-outline-primary">Contact</button>
+      <form action="/delete-datapoint/{{this._project}}/{{this._id}}" method="post" style="display:inline-block">
+        <button class="btn btn-outline-danger mb-1">Delete</button>
+      </form>
+      <a href="mailto:{{this._user.email}}?subject=Your observation for the project {{../project.projectName}}" class="btn btn-outline-primary mb-1">Contact</a>
     </div>
     <div class="col mt-3">
       <strong>Comments</strong>
@@ -141,9 +143,8 @@
                 lat: datapoint.location.coordinates[0],
                 lng: datapoint.location.coordinates[1]
               };
-              //create a marker for each datapoint
+              //create a marker for each datapoint, user's markers are green and all the others are red
               let iconUrl = "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-              console.log(datapoint._user._id === "{{userId}}")
               if (datapoint._user._id == "{{userId}}"){
                 iconUrl = "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
               }
@@ -155,15 +156,21 @@
                 }
               });
               markers.push(pin);
+
+              //auto center and auto zoom map based on the markers
               markerBounds.extend(center);
               map.fitBounds(markerBounds);
+              
+              //add info-windows to every marker with delete/contact oprions for the project owner
               let infowindow;
               if({{isOwned}}) {
                   infowindow = new google.maps.InfoWindow({
-                  content: `Collected by: <br> 
-                              ${datapoint._user.firstName} ${datapoint._user.lastName} <br>
-                              <a href="" class="btn"><i class="fas fa-trash"></i></a>
-                              <a href="" class="btn"><i class="fas fa-envelope"></i></>`
+                  content: `Collected by: 
+                              <strong>${datapoint._user.firstName} ${datapoint._user.lastName}</strong> 
+                              <a href="mailto:${datapoint._user.email}?subject=Your observation for the project {{project.projectName}}" class="btn"><i class="fas fa-envelope"></i></a>
+                              <form action="/delete-datapoint/${datapoint._project}/${datapoint._id}" method="post" style="display:inline-block">
+                                <button class="btn"><i class="fas fa-trash"></i></button>
+                              </form>`
                 });
               } else {
                 infowindow = new google.maps.InfoWindow({
@@ -175,6 +182,7 @@
             })
           })
           .then(()=>{
+            //show the info windows on-click
             infoWindows.forEach(function(infowindow, index){
               markers[index].addListener('click', function() {
                 if (lastWindow) lastWindow.close();

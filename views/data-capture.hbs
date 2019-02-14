@@ -63,6 +63,9 @@
         title: "You are here",
         draggable: true
       });
+      document.getElementById("lat").value = center.lat;
+      document.getElementById("lng").value = center.lng;
+
       google.maps.event.addListener(currentPositionMarker, 'dragend' , function(evt) {
         document.getElementById("lat").value = evt.latLng.lat();
         document.getElementById("lng").value = evt.latLng.lng();
