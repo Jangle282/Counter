@@ -10,9 +10,9 @@
     <div class="form-group row">
       <label class="col-3 col-form-label" for="projectNamet">Project</label>
       <div class="col-9">
-        <select class="form-control" name="projectName">
+        <select class="form-control" name="projectId">
           {{#each projects}}
-          <option value={{_project.projectName}}>{{_project.projectName}}</option>
+          <option value="{{_project._id}}">{{_project.projectName}}</option>
           {{/each}}
         </select>
       </div>
