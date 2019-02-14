@@ -60,11 +60,15 @@
           lng: center.lng
         },
         map: map,
-        title: "You are here"
+        title: "You are here",
+        draggable: true
       });
-      console.log("center", center)
-    document.getElementById("lat").value = center.lat;
-    document.getElementById("lng").value = center.lng;
+      google.maps.event.addListener(currentPositionMarker, 'dragend' , function(evt) {
+        document.getElementById("lat").value = evt.latLng.lat();
+        document.getElementById("lng").value = evt.latLng.lng();
+    });
+    
+    
     }, function () {
       // If something goes wrong
       console.log('Error in the geolocation service.');
