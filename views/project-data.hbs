@@ -72,12 +72,7 @@
     <div class="col-sm-3 mt-3">
       <h3 class="mb-0">{{project.projectName}}</h3>
     </div>
-    <div class="col-sm-7 mt-3">{{project.description}} </div>
-    <div class="col-sm-2 mt-3">
-      <form action="/delete-project/{{project._id}}" method="POST">
-        <button class="btn btn-outline-danger">DELETE</button>
-      </form>
-    </div>
+    <div class="col-sm-9 mt-3">{{project.description}} </div>
   </div>
   <div class="row">
     <div id="map-all"></div>
@@ -99,8 +94,6 @@
     <div class="col-sm-6 mt-3">
       <h6><strong>{{this._user.firstName}} {{this._user.lastName}}</strong></h6>
       <p>{{this.created_at}}</p>
-        <button class="btn btn-outline-danger">Delete</button>
-        <button class="btn btn-outline-primary">Contact</button>
     </div>
     <div class="col mt-3">
       <strong>Comments</strong>
@@ -138,7 +131,7 @@
         //get the datapoints
         const markers = [];
         const infoWindows = [];
-        
+        let markerBounds = new google.maps.LatLngBounds();
         axios.get("/api/data-points/{{project._id}}")
           .then(response => {
             let dataPoints = response.data;
@@ -150,6 +143,10 @@
               };
               //create a marker for each datapoint
               let iconUrl = "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+              console.log(datapoint._user._id === "{{userId}}")
+              if (datapoint._user._id == "{{userId}}"){
+                iconUrl = "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+              }
               const pin = new google.maps.Marker({
                 position: center,
                 map: map,
@@ -158,12 +155,22 @@
                 }
               });
               markers.push(pin);
-              const infowindow = new google.maps.InfoWindow({
-                content: `Collected by: <br> 
-                            ${datapoint._user.firstName} ${datapoint._user.lastName} <br>
-                            <a href="" class="btn"><i class="fas fa-trash"></i></a>
-                            <a href="" class="btn"><i class="fas fa-envelope"></i></>`
-              });
+              markerBounds.extend(center);
+              map.fitBounds(markerBounds);
+              let infowindow;
+              if({{isOwned}}) {
+                  infowindow = new google.maps.InfoWindow({
+                  content: `Collected by: <br> 
+                              ${datapoint._user.firstName} ${datapoint._user.lastName} <br>
+                              <a href="" class="btn"><i class="fas fa-trash"></i></a>
+                              <a href="" class="btn"><i class="fas fa-envelope"></i></>`
+                });
+              } else {
+                infowindow = new google.maps.InfoWindow({
+                  content: `Collected by: <br> 
+                              ${datapoint._user.firstName} ${datapoint._user.lastName}`
+                });
+              }
               infoWindows.push(infowindow);
             })
           })
