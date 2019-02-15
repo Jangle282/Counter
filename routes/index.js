@@ -78,7 +78,6 @@ router.post('/delete-datapoint/:datapointId', isConnected, (req, res, next)  => 
 
 // ------USER PROFILE-----
 // render profile page with user information 
-// routes for user profile
 router.get("/profile", isConnected, (req,res,next) => {
   Promise.all([
     Project.find({'_owner': req.user._id}),

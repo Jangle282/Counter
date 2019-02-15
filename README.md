@@ -34,7 +34,6 @@ What things you need to install the software and how to install them
 - Write a better README
   - Presentation of the project with links and screenshots
   - Instructions to execute the project: `git clone ...; npm install; npm run dev` and a `.env` example
-- Update the route `GET /api/data-points/:projectId`, and give the email only if `req.user` is the owner
 
 
 
