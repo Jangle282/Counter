@@ -38,13 +38,13 @@
                 <div class="col-sm-4 vcenter">
 
         <form action="/project/{{this.project_id}}" method="GET">
-          <button class="btn btn-outline-primary">MANAGE</button>
+          <button class="btn btn-outline-primary">Manage</button>
         </form>
         </div>
         {{else}}
         <div class="col-sm-4 vcenter">
           <form action="data-capture" method="GET">
-            <button class="btn btn-outline-primary">SUBMIT DATA</button>
+            <button class="btn btn-outline-primary">Submit Data</button>
           </form>
         </div>
         {{/if}}
@@ -53,7 +53,7 @@
       {{#unless this.isJoined}}
         <div class="col-sm-4 vcenter">
           <form action="/join/{{this.project_id}}/home" method="GET">
-            <button class="btn btn-outline-success">JOIN</button>
+            <button class="btn btn-outline-success">Join</button>
           </form>
         </div>
       {{/unless}}
@@ -70,7 +70,7 @@
             </div>
             <div class="col-sm-4 vcenter">
               <form action="/auth/login" method="GET">
-                <button class="btn btn-outline-success">GET INVOLVED</button>
+                <button class="btn btn-outline-success">Get Involved</button>
               </form>
             </div>
           </div>
