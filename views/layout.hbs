@@ -32,8 +32,8 @@
 
 <body>
 
-
-  <nav class="navbar navbar-expand navbar-light ">
+<div id="topheader">
+  <nav class="navbar fixed-top navbar-expand navbar-light ">
     <div class="container" style="max-width: 700px">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -45,15 +45,15 @@
         </li>
         {{#if isConnected}}
         <li class="nav-item">
-          <a class="nav-link" href="/profile"><i class="fas fa-user-circle fa-2x"></i></a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="/data-capture"><i class="fas fa-map-marker-alt fa-2x"></i></a>
         </li>
         {{/if}}
       </ul>
       <ul class="navbar-nav mr-sm-2">
         {{#if isConnected}}
+        <li class="nav-item">
+          <a class="nav-link" href="/profile"><i class="fas fa-user-circle fa-2x"></i></a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt fa-2x"></i></a>
         </li>
@@ -69,8 +69,9 @@
       </div>
     </div>
   </nav>
+</div>
 
-
+<div style="height:65px"></div>
   <div class="container" style="max-width: 700px">
   {{{body}}}
   </div>
