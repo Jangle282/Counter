@@ -104,14 +104,12 @@ router.get("/edit-profile", isConnected, (req, res, next) => {
 // updates edited profile information in the database
 router.post("/edit-profile", isConnected, (req, res, next) => {
   let userId = req.user._id
-  let { firstName, lastName, email, role } = req.body
+  let { firstName, lastName} = req.body
   User.findOneAndUpdate({ '_id': userId },
     {
       $set: {
         'firstName': firstName,
-        'lastName': lastName,
-        'email': email,
-        'role': role
+        'lastName': lastName
       }
     })
     .then(() => res.redirect("/profile"))

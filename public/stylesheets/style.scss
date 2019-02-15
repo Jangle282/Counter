@@ -1,7 +1,7 @@
 $primary: rgb(23, 65, 89);
 $success: rgb(79, 185, 159);
 $danger: rgb(237,85,59);
-$warning: rgb(242,177,52);
+$warning: rgb(242,154,48);
 $light: rgb(255, 255, 255);
 $navbar-light-color: $success;
 $body-bg: $success;
@@ -47,4 +47,9 @@ div {
   align-items: center;
   justify-content: center;
   flex-direction: row;
+}
+
+.btn {
+  color: white;
+  box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.19)
 }

@@ -25,11 +25,11 @@
       </div> --}}
       <div class="form-group row" align="right">
         <div class="col" >
-          <button class="btn btn-outline-primary" action="/edit-profile" method="POST">
-            UPDATE
+          <button class="btn btn-primary" action="/edit-profile" method="POST">
+            Update
           </button>
           <button class="btn btn-danger" action="/profile" method="GET">
-            CANCEL
+            Cancel
           </button>
         </div>
       </div>
@@ -48,8 +48,8 @@
         </div>
         <div class="col-sm-2 pt-2">
           <form action="/edit-profile" method="GET">
-            <button class="btn btn-outline-warning" >
-              EDIT
+            <button class="btn btn-warning" >
+              Edit
             </button>
           </form>
         </div>
@@ -73,7 +73,7 @@
               <div class="col-md-7 mb-2">{{description}}</div>
               <div class="col-sm-2 mb-2">
                 <form action="/project/{{_id}}" method="GET">
-                  <button class="btn btn-outline-warning">MANAGE</button>
+                  <button class="btn btn-warning">Manage</button>
                 </form>
               </div>
             </div>
@@ -93,7 +93,7 @@
                 <input class="form-control" required type="text" placeholder="Description" name="description"></input>
               </div>
               <div class="col-sm-2 mb-2">
-                <button class="btn btn-outline-success">CREATE</button>
+                <button class="btn btn-success">Create</button>
               </div>
             </div>
           </form>
@@ -112,7 +112,7 @@
               <div class="col-md-7 mb-2">{{_project.description}}</div>
               <div class="col-sm-2 mb-2">
                 <form action="/leave/{{_project._id}}" method="GET">
-                  <button class="btn btn-outline-danger">LEAVE</button>
+                  <button class="btn btn-danger">Leave</button>
                 </form>
               </div>
             </div>
