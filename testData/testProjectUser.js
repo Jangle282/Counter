@@ -40,6 +40,18 @@ new ProjectUser ({
   _project: projects[2]._id,
   _participant: users[7]._id
 }),
+new ProjectUser ({ // for Jon Snow and white walkers
+  _project: projects[4]._id,
+  _participant: users[3]._id
+}),
+new ProjectUser ({ // for Jon Snow and white walkers
+  _project: projects[2]._id,
+  _participant: users[3]._id
+}),
+new ProjectUser ({ // for Kiarra & rough sleeping
+  _project: projects[3]._id,
+  _participant: users[2]._id
+}),
 ]
 
 module.exports = projectUser;

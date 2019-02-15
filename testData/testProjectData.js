@@ -4,8 +4,8 @@ const Project = require('../models/Project')
 
 let projects = [
   new Project ({
-    projectName: 'Myxomatosis',
-    description: "This disease is spreading rapidly and killing all the wild rabbits, we need data on where the infected animals are to map the spread of the disease",
+    projectName: 'Rabbits',
+    description: "Myxomatosis is spreading rapidly and killing all the wild rabbits, we need data on where the infected animals are to map the spread of the disease",
     _owner: users[0]._id,
     status: 'public',
   }),

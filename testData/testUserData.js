@@ -26,7 +26,7 @@ let users = [
   new User({
     firstName: 'Kiarra',
     lastName: 'Doyle',
-    email: "Kiarra.Doyle@darwin.net", 
+    email: "Wilbert.Zboncak@terrence.info", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
     profilePicPath: "",
     status: 'Active',
