@@ -1,23 +1,4 @@
 <div class="container">
-<<<<<<< HEAD
-{{!-- OWNER VIEW --}}
-{{#if isOwned}}
-  {{#if isEdited}}
-    <div class="container">
-    <div class="row">
-      <form action="/update-project/{{project._id}}" method="POST">
-        <div class="form-group row">
-          <div class="col-sm-3 mb-2">
-            <textarea maxlength="100" class="form-control" name="projectName" id="projectName" cols="15" rows="1">{{project.projectName}}</textarea>
-          </div>
-          <div class="col-sm-5 mb-2">
-            <textarea maxlength="500" class="form-control" name="description" id="description" cols="30" rows="1">{{project.description}}</textarea>
-          </div>
-          <div class="col-sm-4 mb-2">
-            <button class="btn btn-outline-primary">Update</button>
-            <a href="/project/{{project._id}}" class="btn btn-outline-danger">Cancel</a></h5>
-          </div>
-=======
   {{#if isOwned}}
       {{#if isEdited}}
       <div class="row contentbox">
@@ -49,7 +30,6 @@
           <form action="/delete-project/{{project._id}}" method="post">
             <button style="white-space: nowrap;" class="btn btn-outline-danger mb-1">DELETE</button>
           </form>
->>>>>>> da6f7ea52fc242fefefa4783cb95a92e723eb6f5
         </div>
       </form>
     </div>
@@ -74,47 +54,20 @@
       <div id="map-all"></div>
     </div>
   </div>
-<<<<<<< HEAD
-=======
 
 
 <div class="row contentbox p-3">
 
->>>>>>> da6f7ea52fc242fefefa4783cb95a92e723eb6f5
   <div class="row">
     <div class="col">
       <h5 style="color: white">Total Count: {{dataPoints.length}}</h5> 
     </div>
-<<<<<<< HEAD
-    <form action="/delete-project/{{project._id}}" method="post">
-      <div class="col-sm-2 mb-2">
-        <button style="white-space: nowrap;" class="btn btn-outline-danger">Delete Project</button>
-      </div>
-    </form>
-  </div>
-  {{!-- ALL DATAPOINTS --}}
-<div class="contain" style="background-color: white; border-radius: 10px; padding: 14px;">
-  <div class="row">
-=======
- {{!-- <div class="col"> --}}
-  
-  
-  </div>
-<hr>
-  {{!-- <div class="row">
->>>>>>> da6f7ea52fc242fefefa4783cb95a92e723eb6f5
-    <div class="col">
-      <h5>All Datapoints</h5> 
-    </div>
-  </div> --}}
-  {{#unless dataPoints}}
   <p>There are no data points for this project yet</p>
   {{/unless}}
   {{#each dataPoints}}
   <div class="row">
     <div class="col-sm-6 mt-3">
       <h6><strong>{{this._user.firstName}} {{this._user.lastName}}</strong></h6>
-      <p>{{this.created_at}}</p>
       <form action="/delete-datapoint/{{this._id}}" method="post" style="display:inline-block">
         <button class="btn btn-outline-danger mb-1">Delete</button>
       </form>

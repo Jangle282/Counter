@@ -47,18 +47,6 @@
       <div class="col-sm-4 vcenter">
 
         <form action="/project/{{this.project_id}}" method="GET">
-<<<<<<< HEAD
-          <button class="btn btn-outline-primary">Manage</button>
-        </form>
-        </div>
-        {{else}}
-        <div class="col-sm-4 vcenter">
-          <form action="data-capture" method="GET">
-            <button class="btn btn-outline-primary">Submit Data</button>
-          </form>
-        </div>
-        {{/if}}
-=======
           <button class="btn btn-outline-warning">MANAGE</button>
         </form>
       </div>
@@ -68,24 +56,15 @@
           <button class="btn btn-outline-primary">SUBMIT DATA</button>
         </form>
       </div>
->>>>>>> da6f7ea52fc242fefefa4783cb95a92e723eb6f5
       {{/if}}
       {{/if}}
 
       {{#unless this.isJoined}}
-<<<<<<< HEAD
         <div class="col-sm-4 vcenter">
           <form action="/join/{{this.project_id}}/home" method="GET">
             <button class="btn btn-outline-success">Join</button>
           </form>
         </div>
-=======
-      <div class="col-sm-4 vcenter">
-        <form action="/join/{{this.project_id}}/home" method="GET">
-          <button class="btn btn-outline-success">JOIN</button>
-        </form>
-      </div>
->>>>>>> da6f7ea52fc242fefefa4783cb95a92e723eb6f5
       {{/unless}}
     </div>
     {{/each}}
@@ -105,27 +84,7 @@
       </div>
     </div>
     {{/each}}
-<<<<<<< HEAD
-  {{else}}
-      {{!-- unconnected users --}}
-        {{#each projects}}
-          <div class="row mb-2 vertical-align">
-            <div class="col-sm-8">
-              <h5>{{this.projectName}}</h5>
-              <p>{{this.description}}</p>
-              {{!-- <a href="/project/{{this.project_id}}">{{this.projectName}}</a> --}}
-            </div>
-            <div class="col-sm-4 vcenter">
-              <form action="/auth/login" method="GET">
-                <button class="btn btn-outline-success">Get Involved</button>
-              </form>
-            </div>
-          </div>
-        {{/each}}
-  {{/if}}
-=======
     {{/if}}
->>>>>>> da6f7ea52fc242fefefa4783cb95a92e723eb6f5
   </div>
 </div>
 
