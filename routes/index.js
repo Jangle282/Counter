@@ -89,6 +89,10 @@ router.get("/profile", isConnected, (req,res,next) => {
       let user = req.user
       let projectsIown = result[0]
       let projectsIparticipateIn = result[1]
+      //only projects that I'm not owning
+      projectsIparticipateIn = projectsIparticipateIn.filter((card) => {
+        return projectsIown.map(project => project._id.toString()).indexOf(card._project._id.toString()) < 0;
+      })
       res.render('profile', {user, projectsIown, projectsIparticipateIn, isEdited})
       isEdited = false
     })
