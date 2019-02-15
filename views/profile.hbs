@@ -1,115 +1,124 @@
 <div class="container">
-  {{#if isEdited}}
-
-    <form action="/edit-profile" method="POST">
-    <div class="form-group row">
-      <label class="col-3 col-form-label" for="firstName">First Name</label>
-      <div class="col-9">
-        <input class="form-control" id="firstName" type="text" name="firstName" value="{{user.firstName}}"
-        required>
+  {{!-- PROFILE INFORMATION --}}
+  {{!-- edit mode --}}
+    {{#if isEdited}}
+      <form action="/edit-profile" method="POST">
+      <div class="form-group row">
+        <label class="col-3 col-form-label" for="firstName">First Name</label>
+        <div class="col-9">
+          <input class="form-control" id="firstName" type="text" name="firstName" value="{{user.firstName}}"
+          required>
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-3 col-form-label" for="lastName">Last Name</label>
-      <div class="col-9">
-        <input class="form-control" id="lastName" type="text" name="lastName" value="{{user.lastName}}"
-        required>
+      <div class="form-group row">
+        <label class="col-3 col-form-label" for="lastName">Last Name</label>
+        <div class="col-9">
+          <input class="form-control" id="lastName" type="text" name="lastName" value="{{user.lastName}}"
+          required>
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <label for="email" class="col-3 col-form-label">Email</label>
-      <div class="col-9">
-        <input class="form-control" id="email" type="email" name="email" value="{{user.email}}">
+      <div class="form-group row">
+        <label for="email" class="col-3 col-form-label">Email</label>
+        <div class="col-9">
+          <input class="form-control" id="email" type="email" name="email" value="{{user.email}}">
+        </div>
       </div>
-    </div>
-    <div class="form-group row" align="right">
-      <div class="col" >
-        <button class="btn btn-primary" action="/edit-profile" method="POST">
-          UPDATE
-        </button>
-        <button class="btn btn-outline-danger" action="/profile" method="GET">
-          CANCEL
-        </button>
-      </div>
-    </div>
-  </form>
-
-  
-  {{else}}
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-3">
-        <i class="fas fa-user-circle fa-7x"></i>
-      </div>
-      <div class="col-sm-7">
-          <h4>{{user.firstName}} {{user.lastName}}</h4>
-          <br>
-          <p>{{user.email}}</p>
-      </div>
-      <div class="col-sm-2">
-        <form action="/edit-profile" method="GET">
-          <button class="btn btn-outline-primary" >
-            EDIT
+      <div class="form-group row" align="right">
+        <div class="col" >
+          <button class="btn btn-primary" action="/edit-profile" method="POST">
+            UPDATE
           </button>
-        </form>
+          <button class="btn btn-outline-danger" action="/profile" method="GET">
+            CANCEL
+          </button>
+        </div>
+      </div>
+    </form>
+  {{!-- normal mode --}}
+    {{else}}
+    <div class="container">
+      <div class="row ">
+        <div class="col-sm-3">
+          <i class="fas fa-user-circle fa-7x"></i>
+        </div>
+        <div class="col-sm-7  pt-2">
+            <h4>{{user.firstName}} {{user.lastName}}</h4>
+            <br>
+            <p>{{user.email}}</p>
+        </div>
+        <div class="col-sm-2 pt-2">
+          <form action="/edit-profile" method="GET">
+            <button class="btn btn-outline-primary" >
+              EDIT
+            </button>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-  {{/if}}
-  <br><hr><br>
-  <div class="container">
-    {{#if projectsIown}}
-    <div class="row">
-      <h4>Projects I'm managing</h4>
-    </div>
-    <br>
-      {{projectsIown}}
-      {{#each projectsIown}}
+    {{/if}}
+    <br><hr><br>
+  {{!-- PROJECTS --}}
+  {{!-- projects I'm managing --}}
+  <div class="container" style="background-color: white; border-radius: 10px; padding: 14px;">
+      <div class="container">
+        {{#if projectsIown}}
         <div class="row">
-          <div class="col-sm-3 mb-2">
-          <a href="/project/{{_id}}"><strong>{{projectName}}</strong></a></div>
-          <div class="col-sm-7 mb-2">{{description}}</div>
-          <div class="col-sm-2 mb-2">
-            <form action="/project/{{_id}}" method="GET">
-              <button class="btn btn-outline-primary">MANAGE</button>
-            </form>
-          </div>
+          <h4>Projects I'm managing</h4>
         </div>
         <br>
-      {{/each}}
-    <br>
-    {{/if}}
-      <form action="/new-project" method="POST">
-        <div class="form-group row">
-          <div class="col-sm-3 mb-2">
-            <input class="form-control" required type="text" placeholder="Project" name="projectName"></input>
-          </div>
-          <div class="col-sm-7 mb-2">
-            <input class="form-control" required type="text" placeholder="Description" name="description"></input>
-          </div>
-          <div class="col-sm-2 mb-2">
-            <button class="btn btn-outline-primary">CREATE</button>
-          </div>
-        </div>
-      </form>
-    <br>
-    {{#if projectsIparticipateIn}}
-    <div class="row">
-      <h4>Projects I've joined</h4>
-    </div>
-    <br>
-      {{#each projectsIparticipateIn}}
+          {{#each projectsIown}}
+            <div class="row">
+              <div class="col-sm-3 mb-2">
+              <a href="/project/{{_id}}"><strong>{{projectName}}</strong></a></div>
+              <div class="col-md-7 mb-2">{{description}}</div>
+              <div class="col-sm-2 mb-2">
+                <form action="/project/{{_id}}" method="GET">
+                  <button class="btn btn-outline-primary">Manage</button>
+                </form>
+              </div>
+            </div>
+            <br>
+          {{/each}}
+        <br>
+        {{/if}}
+      </div>
+  {{!-- create a project --}}
+      <div class="container">
+          <form action="/new-project" method="POST">
+            <div class="form-group row">
+              <div class="col-sm-3 mb-2">
+                <input class="form-control" required type="text" placeholder="Project" name="projectName"></input>
+              </div>
+              <div class="col-md-7 mb-2">
+                <input class="form-control" required type="text" placeholder="Description" name="description"></input>
+              </div>
+              <div class="col-sm-2 mb-2">
+                <button class="btn btn-outline-success">Create</button>
+              </div>
+            </div>
+          </form>
+      </div>
+      <br>
+  {{!-- projects i've joined --}}
+      <div class="container">
+        {{#if projectsIparticipateIn}}
         <div class="row">
-          <div class="col-sm-3 mb-2"><a href="/project/{{_project.id}}"><strong>{{_project.projectName}}</strong></a></div>
-          <div class="col-sm-7 mb-2">{{_project.description}}</div>
-          <div class="col-sm-2 mb-2">
-            <form action="/leave/{{_project._id}}" method="GET">
-              <button class="btn btn-outline-danger">LEAVE</button>
-            </form>
-          </div>
+          <h4>Projects I've joined</h4>
         </div>
         <br>
-      {{/each}}
-    {{/if}}
+          {{#each projectsIparticipateIn}}
+            <div class="row">
+              <div class="col-sm-3 mb-2"><a href="/project/{{_project.id}}"><strong>{{_project.projectName}}</strong></a></div>
+              <div class="col-md-7 mb-2">{{_project.description}}</div>
+              <div class="col-sm-2 mb-2">
+                <form action="/leave/{{_project._id}}" method="GET">
+                  <button class="btn btn-outline-danger">Leave</button>
+                </form>
+              </div>
+            </div>
+            <br>
+          {{/each}}
+        {{/if}}
+      </div>
   </div>
 </div>
