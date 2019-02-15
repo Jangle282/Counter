@@ -4,5 +4,5 @@ module.exports = {
   <p>Thank you for joining Data Counter! 
   <br>
   Please confirm your registration by clicking the following link:</p>
-  <a href="http://localhost:3000/auth/confirm/${confirmationCode}">CONFIRM</a>`}
+  <a href="https://datacounter.herokuapp.com/auth/confirm/${confirmationCode}">CONFIRM</a>`}
 }

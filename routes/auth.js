@@ -103,7 +103,7 @@ router.post("/signup", (req, res, next) => {
         to: email,
         subject: "Activate your account",
         text: `Hello ${firstName} ${lastName}! Thank you for joining Data Counter! Please confirm your registration by clicking the following link: 
-        "http://localhost:3000/auth/confirm/${confirmationCode}"`,
+        "https://datacounter.herokuapp.com/auth/confirm/${confirmationCode}"`,
         html: emailTemplate(firstName, lastName, confirmationCode)})
     ])
     .then((results) => {

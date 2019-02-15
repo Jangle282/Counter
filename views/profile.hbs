@@ -28,8 +28,13 @@
           <button class="btn btn-outline-primary" action="/edit-profile" method="POST">
             Update
           </button>
+<<<<<<< HEAD
           <button class="btn btn-outline-danger" action="/profile" method="GET">
             Cancel
+=======
+          <button class="btn btn-danger" action="/profile" method="GET">
+            CANCEL
+>>>>>>> da6f7ea52fc242fefefa4783cb95a92e723eb6f5
           </button>
         </div>
       </div>
@@ -37,7 +42,7 @@
   {{!-- normal mode --}}
     {{else}}
     <div class="container">
-      <div class="row ">
+      <div class="row contentbox p-3">
         <div class="col-sm-3">
           <i class="fas fa-user-circle fa-7x"></i>
         </div>
@@ -48,15 +53,20 @@
         </div>
         <div class="col-sm-2 pt-2">
           <form action="/edit-profile" method="GET">
+<<<<<<< HEAD
             <button class="btn btn-outline-primary" >
               Edit
+=======
+            <button class="btn btn-outline-warning" >
+              EDIT
+>>>>>>> da6f7ea52fc242fefefa4783cb95a92e723eb6f5
             </button>
           </form>
         </div>
       </div>
     </div>
     {{/if}}
-    <br><hr><br>
+    <br>
   {{!-- PROJECTS --}}
   {{!-- projects I'm managing --}}
   <div class="container" style="background-color: white; border-radius: 10px; padding: 14px;">
@@ -73,7 +83,7 @@
               <div class="col-md-7 mb-2">{{description}}</div>
               <div class="col-sm-2 mb-2">
                 <form action="/project/{{_id}}" method="GET">
-                  <button class="btn btn-outline-primary">Manage</button>
+                  <button class="btn btn-outline-warning">MANAGE</button>
                 </form>
               </div>
             </div>
@@ -93,7 +103,7 @@
                 <input class="form-control" required type="text" placeholder="Description" name="description"></input>
               </div>
               <div class="col-sm-2 mb-2">
-                <button class="btn btn-outline-success">Create</button>
+                <button class="btn btn-outline-success">CREATE</button>
               </div>
             </div>
           </form>
@@ -112,7 +122,7 @@
               <div class="col-md-7 mb-2">{{_project.description}}</div>
               <div class="col-sm-2 mb-2">
                 <form action="/leave/{{_project._id}}" method="GET">
-                  <button class="btn btn-outline-danger">Leave</button>
+                  <button class="btn btn-outline-danger">LEAVE</button>
                 </form>
               </div>
             </div>

@@ -1,43 +1,53 @@
 <div class="container">
-{{!-- homepage header --}}
+  {{!-- homepage header --}}
+  
   <div class="row" style="color: white;">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
       <h1 class="display-4" style="color: white">Data Counter</h1>
-      <p><strong style="color: white">A survey tool that crowdsources basic data collection.</strong></p>
-      <p>Be it environmental threats or social issues, you and your participants can submit sightings of your research target on the go, giving you real-time frequency and location information.</p>
+      <br> <br>
     </div>
-    <div class="col-sm-4">  
-      <img src="../images/map-with-points.png" alt="map" width="200px">
-    </div>
+    <br> <br>
   </div>
-  <div class="row">
-    <div class="col mb-3 mt-1">
+  <div class="row" style="color: white;">
+    <div class="col-sm-6">
+      <p><strong style="color: white">CROWDSOURCE YOUR DATA!</strong></p>
+      <p>Be it environmental threats or social issues, you and your participants can submit sightings of your research
+        target on the go, giving you real-time frequency and location information.</p>
+      <p style="color: white">ONE SIGHTING - ONE DATAPOINT.</strong></p>
+      <p style="color: white">THAT EASY.</strong></p>
+      {{#if isConnected}}
+      {{else}}
       <form action="/auth/signup" method="GET">
-        <button class="btn btn-warning mt-2">Sign Up</button>
+        <button class="btn btn-warning mb-3">Sign Up</button>
       </form>
+      {{/if}}
+    </div>
+    <div class="col-sm-6">
+      <img src="../images/map-with-points.png" alt="map" width="100%" style="border-radius: 10px">
     </div>
   </div>
-{{!-- Available projects --}}
-<div class="container" style="background-color: white; border-radius: 10px; padding: 14px;">
-  <div class="row mb-2">
-    <div class="col-sm-12 mb-3">
-      <h3>Available Projects</h3>
+  {{!-- Available projects --}}
+  <div class="container contentbox pt-3 mt-3 pb-3">
+    <div class="row mb-2">
+      <div class="col-sm-12 mb-3">
+        <h3>Available Projects</h3>
+      </div>
     </div>
-  </div>
-  {{#if isConnected}}
+    {{#if isConnected}}
     {{#each projects}}
-      <div class="row mb-2 vertical-align">
-        <div class="col-sm-8">
-          {{!-- <h5>{{this.projectName}}</h5> --}}
-          <h5><a href="/project/{{this.project_id}}">{{this.projectName}}</a></h5>
-          <p>{{this.description}}</p>
-        </div>
+    <div class="row mb-2 vertical-align">
+      <div class="col-sm-8">
+        {{!-- <h5>{{this.projectName}}</h5> --}}
+        <h5><a href="/project/{{this.project_id}}">{{this.projectName}}</a></h5>
+        <p>{{this.description}}</p>
+      </div>
 
       {{#if this.isJoined}}
-        {{#if this.isOwner}} 
-                <div class="col-sm-4 vcenter">
+      {{#if this.isOwner}}
+      <div class="col-sm-4 vcenter">
 
         <form action="/project/{{this.project_id}}" method="GET">
+<<<<<<< HEAD
           <button class="btn btn-outline-primary">Manage</button>
         </form>
         </div>
@@ -48,17 +58,54 @@
           </form>
         </div>
         {{/if}}
+=======
+          <button class="btn btn-outline-warning">MANAGE</button>
+        </form>
+      </div>
+      {{else}}
+      <div class="col-sm-4 vcenter">
+        <form action="data-capture" method="GET">
+          <button class="btn btn-outline-primary">SUBMIT DATA</button>
+        </form>
+      </div>
+>>>>>>> da6f7ea52fc242fefefa4783cb95a92e723eb6f5
       {{/if}}
-      
+      {{/if}}
+
       {{#unless this.isJoined}}
+<<<<<<< HEAD
         <div class="col-sm-4 vcenter">
           <form action="/join/{{this.project_id}}/home" method="GET">
             <button class="btn btn-outline-success">Join</button>
           </form>
         </div>
-      {{/unless}}
+=======
+      <div class="col-sm-4 vcenter">
+        <form action="/join/{{this.project_id}}/home" method="GET">
+          <button class="btn btn-outline-success">JOIN</button>
+        </form>
       </div>
+>>>>>>> da6f7ea52fc242fefefa4783cb95a92e723eb6f5
+      {{/unless}}
+    </div>
     {{/each}}
+    {{else}}
+    {{!-- unconnected users --}}
+    {{#each projects}}
+    <div class="row mb-2 vertical-align">
+      <div class="col-sm-8">
+        <h5>{{this.projectName}}</h5>
+        <p>{{this.description}}</p>
+        {{!-- <a href="/project/{{this.project_id}}">{{this.projectName}}</a> --}}
+      </div>
+      <div class="col-sm-4 vcenter">
+        <form action="/auth/login" method="GET">
+          <button class="btn btn-outline-success">GET INVOLVED</button>
+        </form>
+      </div>
+    </div>
+    {{/each}}
+<<<<<<< HEAD
   {{else}}
       {{!-- unconnected users --}}
         {{#each projects}}
@@ -76,16 +123,19 @@
           </div>
         {{/each}}
   {{/if}}
+=======
+    {{/if}}
+>>>>>>> da6f7ea52fc242fefefa4783cb95a92e723eb6f5
   </div>
 </div>
 
 
 {{!-- TODO Previous Projects list with Join/leave/manage --}}
-      {{!-- <div class="row mb-2">
+{{!-- <div class="row mb-2">
         <div class="col-sm-6">
           <h5><a href="/project/{{this.project_id}}">{{this.projectName}}</a></h5>
         </div> --}}
-      {{!-- {{#if this.isJoined}}
+{{!-- {{#if this.isJoined}}
         <div class="col-3">
           <form action="/leave/{{this.project_id}}" method="GET">
             <button class="btn btn-outline-danger">LEAVE</button>
