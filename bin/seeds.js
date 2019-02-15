@@ -1,6 +1,7 @@
 // Seeds file that remove all users and creates test data
+require('dotenv').config();
+
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 
 const User = require("../models/User");
 const Project = require('../models/Project')
@@ -13,10 +14,9 @@ const projects = require('../testData/testProjectData')
 const projectUser = require('../testData/testProjectUser')
 
 
-const bcryptSalt = 10;
 mongoose.set('useCreateIndex', true)
 mongoose
-  .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
+  .connect("mongodb://heroku_v734hcl2:qfd7up0hbema88fgrvub2o0quc@ds237868.mlab.com:37868/heroku_v734hcl2", {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -25,7 +25,7 @@ mongoose
   });
 
   // ----Delete and create test data in database-----
-
+console.log("I'm here'")
 User.deleteMany()
 .then(() => Project.deleteMany())
 .then(() => DataPoint.deleteMany())
@@ -46,7 +46,8 @@ User.deleteMany()
   }
   return Promise.all(promises)
 })
-.then(usersCreated => {
+.then(created => {
+  console.log(created)
   mongoose.disconnect()
 })
 .catch(err => {

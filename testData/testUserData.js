@@ -15,7 +15,7 @@ let users = [
     confirmationCode: createConfirmationCode()
   }),
   new User({
-    firstName: 'Kiarra',
+    firstName: 'Ciarra',
     lastName: 'Doyle',
     email: "Kiarra.Doyle@darwin.net", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
