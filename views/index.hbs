@@ -60,11 +60,11 @@
       {{/if}}
 
       {{#unless this.isJoined}}
-      <div class="col-sm-4 vcenter">
-        <form action="/join/{{this.project_id}}/home" method="GET">
-          <button class="btn btn-outline-success">JOIN</button>
-        </form>
-      </div>
+        <div class="col-sm-4 vcenter">
+          <form action="/join/{{this.project_id}}/home" method="GET">
+            <button class="btn btn-outline-success">Join</button>
+          </form>
+        </div>
       {{/unless}}
     </div>
     {{/each}}
