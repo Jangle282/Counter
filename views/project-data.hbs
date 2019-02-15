@@ -1,5 +1,5 @@
-<div class="container">
-  {{#if isOwned}}
+  <div class="container">
+{{#if isOwned}}
       {{#if isEdited}}
       <div class="row contentbox">
         <form action="/update-project/{{project._id}}" method="POST">
@@ -31,55 +31,44 @@
             <button style="white-space: nowrap;" class="btn btn-outline-danger mb-1">DELETE</button>
           </form>
         </div>
-      </form>
-    </div>
-    </div>
-    {{else}}
-    <div class="row">
-      <div class="col-sm-3 mt-3">
-        <h3 class="mb-0">{{project.projectName}}</h3>
       </div>
-      <div class="col-sm-7 mt-3">
-        <p>{{project.description}}</p>
-      </div>
-      <div class="col-sm-2 mt-3">
-        <form action="/edit-project/{{project._id}}" method="POST">
-          <button class="btn btn-outline-primary">Edit</button>
-        </form>
-      </div>
-    </div>
-    {{/if}}
-  <div class="container">
+      {{/if}}
+
     <div class="row">
       <div id="map-all"></div>
     </div>
+  
+  <div class="row contentbox p-3">  
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h5 style="color: black">Total Count: {{dataPoints.length}}</h5> 
+      </div>
+      {{#unless dataPoints}}
+      <div class="col">
+        <p>There are no data points for this project yet</p>
+      </div>
+        <hr>
+      {{/unless}}
+      </div>
+
+      {{#each dataPoints}}
+      <div class="row">
+        <div class="col-sm-6 mt-3">
+          <h6><strong>{{this._user.firstName}} {{this._user.lastName}}</strong></h6>
+          <form action="/delete-datapoint/{{this._id}}" method="post" style="display:inline-block">
+            <button class="btn btn-outline-danger mb-1">Delete</button>
+          </form>
+          <a href="mailto:`{{this._user.email}}?subject=Your observation for the project {{../project.projectName}}"` class="btn btn-outline-primary mb-1">Contact</a>
+        </div>
+        <div class="col mt-3">
+          <strong>Comments</strong>
+          <p>{{this.comment}}</p>
+        </div>
+      </div>
+      {{/each}}
+    </div>
   </div>
-
-
-<div class="row contentbox p-3">
-
-  <div class="row">
-    <div class="col">
-      <h5 style="color: white">Total Count: {{dataPoints.length}}</h5> 
-    </div>
-  <p>There are no data points for this project yet</p>
-  {{/unless}}
-  {{#each dataPoints}}
-  <div class="row">
-    <div class="col-sm-6 mt-3">
-      <h6><strong>{{this._user.firstName}} {{this._user.lastName}}</strong></h6>
-      <form action="/delete-datapoint/{{this._id}}" method="post" style="display:inline-block">
-        <button class="btn btn-outline-danger mb-1">Delete</button>
-      </form>
-      <a href="mailto:`{{this._user.email}}?subject=Your observation for the project {{../project.projectName}}"` class="btn btn-outline-primary mb-1">Contact</a>
-    </div>
-    <div class="col mt-3">
-      <strong>Comments</strong>
-      <p>{{this.comment}}</p>
-    </div>
-  </div>
-  {{/each}}
-</div>
 
 {{!-- PARTICIPANT VIEW --}}
 {{else}}
