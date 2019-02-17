@@ -29,4 +29,4 @@ use the following command line to run dev mode locally...
 - Googlemap API for location capture and maps
 
 # Contributions
-Are always welcome please submit a well commented pull request with changes or challengesz
+Are always welcome please submit a well commented pull request with changes or challenges.
