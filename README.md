@@ -8,8 +8,8 @@ Users can sign up and after activation link via email, join, create and manage p
 # Getting Started
 - Clone or fork this repository
 - In the command line for the project folder 
-    $ npm init
-    $ npm install
+    <pre>$ npm init</pre>
+    <pre>$ npm install</pre>
 - create a .env file with the following properties
   - PORT= "num" // for local development
   - ENV=development
@@ -18,7 +18,8 @@ Users can sign up and after activation link via email, join, create and manage p
   - MONGODB_URI=  // URI for connection to your MongoDB database - either local or online
 
 use the following command line to run dev mode locally...
- $ npm run dev
+    <pre>$ npm run dev</pre>
+
 
 # Stack
 - Mongo DB and Mongoose for database and database operations
