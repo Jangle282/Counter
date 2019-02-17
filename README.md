@@ -5,7 +5,7 @@ We built this as a challenge to test backend skills and CRUD operations for this
 
 Users can sign up and after activation link via email, join, create and manage projects and most importantly submit their sightings of different things to various projects. As an owner you can manage your projets and the data within them.
 
-##Getting Started
+# Getting Started
 - Clone or fork this repository
 - In the command line for the project folder 
     $ npm init
@@ -20,12 +20,12 @@ Users can sign up and after activation link via email, join, create and manage p
 use the following command line to run dev mode locally...
  $ npm run dev
 
-##Stack
+# Stack
 - Mongo DB and Mongoose for database and database operations
 - Express to handle HTTP methods
 - Node.js for Javascript runtime
 - Bootstrap for styling 
 - Googlemap API for location capture and maps
 
-##Contributions
+# Contributions
 Are always welcome please submit a well commented pull request with changes or challengesz
