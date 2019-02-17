@@ -25,7 +25,6 @@ mongoose
   });
 
   // ----Delete and create test data in database-----
-console.log("I'm here'")
 User.deleteMany()
 .then(() => Project.deleteMany())
 .then(() => DataPoint.deleteMany())

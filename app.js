@@ -14,7 +14,7 @@ const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
 const passport   = require('passport');
 
-
+//---Create connetion to database---
 mongoose
   .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
   .then(x => {
@@ -36,20 +36,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Express View engine setup
-
 app.use(require('node-sass-middleware')({
   src:  path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
       
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
-
-
 
 hbs.registerHelper('ifUndefined', (value, options) => {
   if (arguments.length < 2)
@@ -61,10 +57,8 @@ hbs.registerHelper('ifUndefined', (value, options) => {
   }
 });
   
-
 // default value for title local
 app.locals.title = 'Counter';
-
 
 // Enable authentication using session + passport
 app.use(session({
@@ -75,18 +69,16 @@ app.use(session({
 }))
 app.use(flash());
 require('./passport')(app);
-    
+
+// make isConnected middleware available in all views with either true or false value
 app.use((req,res,next)=>{
-  //!! converts truthy into true and falsy into false
-  //res.locals gives the variable isConnected to the view that will be used
   res.locals.isConnected = !!req.user
   next()
 })
 
+// link to different routes files and path names
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 app.use('/api', require('./routes/api'));
-
-
 
 module.exports = app;

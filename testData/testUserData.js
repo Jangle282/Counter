@@ -74,8 +74,8 @@ let users = [
 
   }),
   new User({
-    firstName: 'Mossie',
-    lastName: "D'Amore",
+    firstName: 'Daenerys',
+    lastName: "Targaryen",
     email: "Mossie.D'Amore@sedrick.net", 
     password: bcrypt.hashSync("test", bcrypt.genSaltSync(bcryptSalt)),
     profilePicPath: "",
@@ -94,7 +94,6 @@ let users = [
 
   })
 ]
-
 
 var extraUsers = [
   {
@@ -197,8 +196,6 @@ for (var i=0; i< extraUsers.length; i++) {
       status: 'Active',
       confirmationCode: createConfirmationCode()
     }))
-  console.log(users.length,)
 }
-
 
 module.exports = users;

@@ -7,7 +7,7 @@ const DataPoint = require("../models/DataPoint")
 const {isConnected} = require("../configs/middlewares")
 var isEdited = false
 
-// routes for home page
+// ----HOME PAGE  ------
 router.get('/', (req, res, next) => {
   // passing ProjectUser docs for logged in users and all Projects docs to the view if user is logged in
   if (req.user) {
@@ -35,6 +35,7 @@ router.get('/', (req, res, next) => {
       })
   }
 });
+
 
 //------DATAPOINTS-------
 //data capture page
@@ -76,6 +77,7 @@ router.post('/delete-datapoint/:datapointId', isConnected, (req, res, next)  => 
     })
 })
 
+
 // ------USER PROFILE-----
 // render profile page with user information 
 router.get("/profile", isConnected, (req,res,next) => {
@@ -96,7 +98,7 @@ router.get("/profile", isConnected, (req,res,next) => {
       isEdited = false
     })
 })
-// user clicked edit button - re-render profile page with isEdited=true
+// render profile page with editable fields
 router.get("/edit-profile", isConnected, (req, res, next) => {
   isEdited = true,
   res.redirect('/profile')
@@ -116,26 +118,8 @@ router.post("/edit-profile", isConnected, (req, res, next) => {
     .catch(err => next(err))
 })
 
+
 // -----PROJECTS-----
-// create a new project
-router.post("/new-project", isConnected, (req,res,next) => {
-  let newProject = new Project ({
-    projectName: req.body.projectName,
-    description: req.body.description,
-    _owner: req.user._id,
-    status: 'public',
-  })
-  newProject.save()
-    .then((project) => {
-      let newCard = new ProjectUser ({
-        _project: project.id,
-        _participant: req.user._id
-      })
-      newCard.save()
-    })
-    .then(() => res.redirect("/profile"))
-    .catch(err => next(err))
-})
 // renders the project-data page showing the users project information 
 router.get("/project/:projectId", isConnected, (req,res,next) => {
   Promise.all([
@@ -158,33 +142,52 @@ router.get("/project/:projectId", isConnected, (req,res,next) => {
       isEdited = false
     })
   })
-// user clicked edit project button - takes project id, sets isEdited to true and re-renders project-data page
-router.post('/edit-project/:projectId', (req,res,next) => {
-  isEdited = true
-  var projectId = req.params.projectId
-  res.redirect(`/project/${projectId}`)
+// create a new project
+router.post("/new-project", isConnected, (req,res,next) => {
+  let newProject = new Project ({
+    projectName: req.body.projectName,
+    description: req.body.description,
+    _owner: req.user._id,
+    status: 'public',
+  })
+  newProject.save()
+    .then((project) => {
+      let newCard = new ProjectUser ({
+        _project: project.id,
+        _participant: req.user._id
+      })
+      newCard.save()
+    })
+    .then(() => res.redirect("/profile"))
+    .catch(err => next(err))
 })
-// user "joins" project - creates a new ProjectUser document object
+// user "joins" project - create a new ProjectUser object
 router.get("/join/:projectId/:page", isConnected, (req,res,next) => {
-  let newProjectUser = new ProjectUser ({
-    _project: req.params.projectId,
-    _participant: req.user._id
+    let newProjectUser = new ProjectUser ({
+      _project: req.params.projectId,
+      _participant: req.user._id
+    })
+    newProjectUser.save()
+    .then(() => {
+      if (req.params.page === "home") {res.redirect("/")}
+      if (req.params.page === "project") {res.redirect(`/project/${req.params.projectId}`)}
+    })
+    .catch(err => next(err))
   })
-  newProjectUser.save()
-  .then(() => {
-    if (req.params.page === "home") {res.redirect("/")}
-    if (req.params.page === "project") {res.redirect(`/project/${req.params.projectId}`)}
-  })
-  .catch(err => next(err))
-})
-// user "leaves" project - deletes ProjectUser document object
+// user "leaves" project - delete ProjectUser  object
 router.get("/leave/:projectId", isConnected, (req,res,next) => {
-  let id = req.params.projectId  
-  ProjectUser.findOneAndDelete({ $and: [{_participant: req.user._id},{_project: id}]})
+    let id = req.params.projectId  
+    ProjectUser.findOneAndDelete({ $and: [{_participant: req.user._id},{_project: id}]})
     .then(() => { 
       res.redirect("/")
     })
     .catch(err => next(err))
+  })
+// redirect to project-data page with editable project information fields
+  router.post('/edit-project/:projectId', (req,res,next) => {
+    isEdited = true
+    var projectId = req.params.projectId
+    res.redirect(`/project/${projectId}`)
   })
 // updates edited project information in the database
 router.post("/update-project/:projectId", isConnected, (req,res,next) => {
