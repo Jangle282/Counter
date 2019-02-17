@@ -46,7 +46,6 @@ User.deleteMany()
   return Promise.all(promises)
 })
 .then(created => {
-  console.log(created)
   mongoose.disconnect()
 })
 .catch(err => {
