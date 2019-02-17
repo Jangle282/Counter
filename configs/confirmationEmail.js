@@ -1,3 +1,4 @@
+// ---Sign up confirmation email 
 module.exports = {
   template: (firstName, lastName, confirmationCode) => {return `<h1>Confirmation Email</h1>
   <h2>Hello ${firstName} ${lastName}!</h2>

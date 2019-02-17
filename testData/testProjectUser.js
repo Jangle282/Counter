@@ -50,7 +50,7 @@ new ProjectUser ({ // for Jon Snow and white walkers
 }),
 new ProjectUser ({ // for Kiarra & rough sleeping
   _project: projects[3]._id,
-  _participant: users[2]._id
+  _participant: users[1]._id
 }),
 ]
 

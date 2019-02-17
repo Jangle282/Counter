@@ -10,6 +10,7 @@ passport.use(new LocalStrategy({
   (email, password, done) => {
     User.findOne({ email })
     .then(foundUser => {
+      // --- validation user is not already signed up / entered incorrect information ---
       if (!foundUser) {
         done(null, false, { message: 'Incorrect email' });
         return;

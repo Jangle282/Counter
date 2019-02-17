@@ -9,8 +9,8 @@
   <br>
   <form action="/submit-data/" method="POST">
     <div class="form-group row">
-      <label style="color:white" class="col-3 col-form-label" for="projectNamet">Project</label>
-      <div class="col-9">
+      <label style="color:white" class="col-sm-3 col-form-label" for="projectNamet">Project</label>
+      <div class="col-sm-9">
         <select class="form-control" name="projectId">
           {{#each projects}}
           <option value="{{_project._id}}">{{_project.projectName}}</option>
@@ -20,8 +20,8 @@
 
     </div>
     <div class="form-group row">
-      <label style="color:white" class="col-3 col-form-label" for="comment">Comment</label>
-      <div class="col-9">
+      <label style="color:white" class="col-sm-3 col-form-label" for="comment">Comment</label>
+      <div class="col-sm-9">
         <input  class="form-control" type="text" name="comment" placeholder="Place your comment here... "></input>
       </div>
     </div>

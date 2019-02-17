@@ -13,7 +13,7 @@ const datapoints = require('../testData/testDataPoints')
 const projects = require('../testData/testProjectData')
 const projectUser = require('../testData/testProjectUser')
 
-
+//---set up connection to mongoose---
 mongoose.set('useCreateIndex', true)
 mongoose
   .connect("mongodb://heroku_v734hcl2:qfd7up0hbema88fgrvub2o0quc@ds237868.mlab.com:37868/heroku_v734hcl2", {useNewUrlParser: true})

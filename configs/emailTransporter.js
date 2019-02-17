@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer')
 
+// ---set up email account to send emails from 
 let transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
@@ -7,7 +8,7 @@ let transporter = nodemailer.createTransport({
     pass: process.env.GMAIL_PASSWORD 
   }
 });
-
+ //---create unique (or as close to unique as neccesary for this project) confirmation token for activation link 
 function createConfirmationCode() {
   const characters =
     "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";

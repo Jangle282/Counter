@@ -1,7 +1,7 @@
 const ProjectUser = require("../models/ProjectUser")
 
 module.exports = {
-  //middleware that checks if user is connected
+  //middleware that checks if user is or is not connected
   isConnected: function(req, res, next){
     if (req.user){
       next()
