@@ -8,7 +8,6 @@ Users can sign up and after activation link via email, join, create and manage p
 # Getting Started
 - Clone or fork this repository
 - In the command line for the project folder 
-    <pre>$ npm init</pre>
     <pre>$ npm install</pre>
 - create a .env file with the following properties
   - PORT= "num" // for local development
